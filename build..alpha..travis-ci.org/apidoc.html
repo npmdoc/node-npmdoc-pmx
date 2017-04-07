@@ -1,0 +1,3303 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/keymetrics/pmx#readme"
+
+    >pmx (v1.1.0)</a>
+</h1>
+<h4>PM2/Keymetrics advanced API</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx">module pmx</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">pmx.</span>_started</span>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx._interpretError">
+            function <span class="apidocSignatureSpan">pmx.</span>_interpretError
+            <span class="apidocSignatureSpan">(err)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.action">
+            function <span class="apidocSignatureSpan">pmx.</span>action
+            <span class="apidocSignatureSpan">(action_name, opts, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.catchAll">
+            function <span class="apidocSignatureSpan">pmx.</span>catchAll
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.catchPorts">
+            function <span class="apidocSignatureSpan">pmx.</span>catchPorts
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.catchTraffic">
+            function <span class="apidocSignatureSpan">pmx.</span>catchTraffic
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.configureModule">
+            function <span class="apidocSignatureSpan">pmx.</span>configureModule
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.detectV8Profiler">
+            function <span class="apidocSignatureSpan">pmx.</span>detectV8Profiler
+            <span class="apidocSignatureSpan">(cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.emit">
+            function <span class="apidocSignatureSpan">pmx.</span>emit
+            <span class="apidocSignatureSpan">(name, data)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.enableProbe">
+            function <span class="apidocSignatureSpan">pmx.</span>enableProbe
+            <span class="apidocSignatureSpan">(custom_namespace)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.enableProbes">
+            function <span class="apidocSignatureSpan">pmx.</span>enableProbes
+            <span class="apidocSignatureSpan">(custom_namespace)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.exposeProfiling">
+            function <span class="apidocSignatureSpan">pmx.</span>exposeProfiling
+            <span class="apidocSignatureSpan">(pmx, profiler_path)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.expressErrorHandler">
+            function <span class="apidocSignatureSpan">pmx.</span>expressErrorHandler
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.getConf">
+            function <span class="apidocSignatureSpan">pmx.</span>getConf
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.getEnv">
+            function <span class="apidocSignatureSpan">pmx.</span>getEnv
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.getPID">
+            function <span class="apidocSignatureSpan">pmx.</span>getPID
+            <span class="apidocSignatureSpan">(file)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.http">
+            function <span class="apidocSignatureSpan">pmx.</span>http
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.init">
+            function <span class="apidocSignatureSpan">pmx.</span>init
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.initModule">
+            function <span class="apidocSignatureSpan">pmx.</span>initModule
+            <span class="apidocSignatureSpan">(opts, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.notify">
+            function <span class="apidocSignatureSpan">pmx.</span>notify
+            <span class="apidocSignatureSpan">(err)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.probe">
+            function <span class="apidocSignatureSpan">pmx.</span>probe
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.resolvePidPaths">
+            function <span class="apidocSignatureSpan">pmx.</span>resolvePidPaths
+            <span class="apidocSignatureSpan">(filepaths)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.scopedAction">
+            function <span class="apidocSignatureSpan">pmx.</span>scopedAction
+            <span class="apidocSignatureSpan">(action_name, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.stopProbe">
+            function <span class="apidocSignatureSpan">pmx.</span>stopProbe
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.stopProbes">
+            function <span class="apidocSignatureSpan">pmx.</span>stopProbes
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.tracing">
+            function <span class="apidocSignatureSpan">pmx.</span>tracing
+            <span class="apidocSignatureSpan">(pmx, opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.v8Profiling">
+            function <span class="apidocSignatureSpan">pmx.</span>v8Profiling
+            <span class="apidocSignatureSpan">(pmx)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>AVAILABLE_AGG_TYPES</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>AVAILABLE_MEASUREMENTS</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>Probe</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>_pmx_conf</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>_var</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>actions</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>common</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>configuration</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>events</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>monitor</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>network</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.</span>transaction</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">pmx.</span>default_aggregation</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.Probe">module pmx.Probe</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">pmx.Probe.</span>_started</span>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.Probe.probe">
+            function <span class="apidocSignatureSpan">pmx.Probe.</span>probe
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.Probe.</span>AVAILABLE_AGG_TYPES</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.Probe.</span>AVAILABLE_MEASUREMENTS</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">pmx.Probe.</span>_var</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">pmx.Probe.</span>default_aggregation</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.actions">module pmx.actions</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.actions.action">
+            function <span class="apidocSignatureSpan">pmx.actions.</span>action
+            <span class="apidocSignatureSpan">(action_name, opts, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.actions.scopedAction">
+            function <span class="apidocSignatureSpan">pmx.actions.</span>scopedAction
+            <span class="apidocSignatureSpan">(action_name, fn)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.common">module pmx.common</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.common.getDate">
+            function <span class="apidocSignatureSpan">pmx.common.</span>getDate
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.configuration">module pmx.configuration</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.configuration.configureModule">
+            function <span class="apidocSignatureSpan">pmx.configuration.</span>configureModule
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.configuration.getPID">
+            function <span class="apidocSignatureSpan">pmx.configuration.</span>getPID
+            <span class="apidocSignatureSpan">(file)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.configuration.init">
+            function <span class="apidocSignatureSpan">pmx.configuration.</span>init
+            <span class="apidocSignatureSpan">(conf, do_not_tell_pm2)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.configuration.resolvePidPaths">
+            function <span class="apidocSignatureSpan">pmx.configuration.</span>resolvePidPaths
+            <span class="apidocSignatureSpan">(filepaths)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.events">module pmx.events</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.events.emit">
+            function <span class="apidocSignatureSpan">pmx.events.</span>emit
+            <span class="apidocSignatureSpan">(name, data)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.monitor">module pmx.monitor</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.monitor.enableProbe">
+            function <span class="apidocSignatureSpan">pmx.monitor.</span>enableProbe
+            <span class="apidocSignatureSpan">(custom_namespace)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.monitor.enableProbes">
+            function <span class="apidocSignatureSpan">pmx.monitor.</span>enableProbes
+            <span class="apidocSignatureSpan">(custom_namespace)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.monitor.stopProbe">
+            function <span class="apidocSignatureSpan">pmx.monitor.</span>stopProbe
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.monitor.stopProbes">
+            function <span class="apidocSignatureSpan">pmx.monitor.</span>stopProbes
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.network">module pmx.network</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.network.catchPorts">
+            function <span class="apidocSignatureSpan">pmx.network.</span>catchPorts
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.network.catchTraffic">
+            function <span class="apidocSignatureSpan">pmx.network.</span>catchTraffic
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.notify">module pmx.notify</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.notify.notify">
+            function <span class="apidocSignatureSpan">pmx.</span>notify
+            <span class="apidocSignatureSpan">(err)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.notify._interpretError">
+            function <span class="apidocSignatureSpan">pmx.notify.</span>_interpretError
+            <span class="apidocSignatureSpan">(err)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.notify.catchAll">
+            function <span class="apidocSignatureSpan">pmx.notify.</span>catchAll
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.notify.expressErrorHandler">
+            function <span class="apidocSignatureSpan">pmx.notify.</span>expressErrorHandler
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.pmx.transaction">module pmx.transaction</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.transaction.http">
+            function <span class="apidocSignatureSpan">pmx.transaction.</span>http
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.pmx.transaction.tracing">
+            function <span class="apidocSignatureSpan">pmx.transaction.</span>tracing
+            <span class="apidocSignatureSpan">(pmx, opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx" id="apidoc.module.pmx">module pmx</a></h1>
+
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx._interpretError" id="apidoc.element.pmx._interpretError">
+        function <span class="apidocSignatureSpan">pmx.</span>_interpretError
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_interpretError = function (err) {
+  var s_err = {};
+
+  if (typeof(err) === &#x27;string&#x27;) {
+    // Simple string processing
+    s_err.message = err;
+    s_err.stack = err;
+  }
+  else if (!(err instanceof Error) &#x26;&#x26; typeof(err) === &#x27;object&#x27;) {
+    // JSON processing
+    s_err.message = err;
+    s_err.stack = err;
+  }
+  else if (err instanceof Error) {
+    // Error object type processing
+    err.stack;
+    if (err.__error_callsites) {
+      var stackFrames = [];
+       err.__error_callsites.forEach(function(callSite) {
+        stackFrames.push({ file_name: callSite.getFileName(), line_number: callSite.getLineNumber()});
+      });
+      err.stackframes = stackFrames;
+      delete err.__error_callsites;
+    }
+    s_err = err;
+  }
+
+  return jsonize(s_err);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+if (listener === &#x27;unhandledRejection&#x27;) {
+  error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+}
+
+console.error(error);
+if (err)
+  var errObj = Notify.<span class="apidocCodeKeywordSpan">_interpretError</span>(err);
+
+Transport.send({
+  type : &#x27;process:exception&#x27;,
+  data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+}, true);
+
+if (!process.listeners(listener).filter(function (listener) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.action" id="apidoc.element.pmx.action">
+        function <span class="apidocSignatureSpan">pmx.</span>action
+        <span class="apidocSignatureSpan">(action_name, opts, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">action = function (action_name, opts, fn) {
+  if (!fn) {
+    fn = opts;
+    opts = null;
+  }
+
+  if (!action_name)
+    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+  if (!fn)
+    return console.error(&#x27;[PMX] emit.data is mission&#x27;);
+
+  if (!process.send) {
+    debug(&#x27;Process not running within PM2&#x27;);
+    return false;
+  }
+
+  // Notify the action
+  Transport.send({
+    type : &#x27;axm:action&#x27;,
+    data : {
+      action_name : action_name,
+      opts        : opts,
+      arity       : fn.length
+    }
+  });
+
+  function reply(data) {
+    if (data.length) {
+      data._length = data.length;
+      delete data.length;
+    }
+
+    Transport.send({
+      type        : &#x27;axm:reply&#x27;,
+      data        : {
+        return      : data,
+        action_name : action_name
+      }
+    });
+  }
+
+  process.on(&#x27;message&#x27;, function(data) {
+    if (!data) return false;
+
+    // In case 2 arguments has been set but no options has been transmitted
+    if (fn.length === 2 &#x26;&#x26; typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+      return fn({}, reply);
+
+    // In case 1 arguments has been set but options has been transmitted
+    if (fn.length === 1 &#x26;&#x26; typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+      return fn(reply);
+
+<span class="apidocCodeCommentSpan">    /**
+     * Classical call
+     */
+</span>    if (typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+      return fn(reply);
+
+    /**
+     * If data is an object == v2 protocol
+     * Pass the opts as first argument
+     */
+    if (typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+      return fn(data.opts, reply);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Simple action allows to trigger a function from Keymetrics. The function takes a function as a parameter (reply here) and need to
+ be called once the job is finished.
+
+Example:
+
+```javascript
+var pmx = require(&#x27;pmx&#x27;);
+
+pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, function(reply) {
+  clean.db(function() {
+    /**
+     * reply() must be called at the end of the action
+     */
+     reply({success : true});
+  });
+});
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.catchAll" id="apidoc.element.pmx.catchAll">
+        function <span class="apidocSignatureSpan">pmx.</span>catchAll
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">catchAll = function (opts) {
+
+  var callsites = require(&#x27;./utils/error-callsites&#x27;)
+
+  if (opts === undefined)
+    opts = { errors : true };
+
+  Options.configureModule({
+    error : opts.errors
+  });
+
+  if (process.env.exec_mode === &#x27;cluster_mode&#x27;)
+    return false;
+
+  function getUncaughtExceptionListener(listener) {
+    return function uncaughtListener(err) {
+      var error = err &#x26;&#x26; err.stack ? err.stack : err;
+
+      if (err &#x26;&#x26; err.length) {
+        err._length = err.length;
+        delete err.length;
+      }
+
+      if (listener === &#x27;unhandledRejection&#x27;) {
+        error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+      }
+
+      console.error(error);
+      if (err)
+        var errObj = Notify._interpretError(err);
+
+      Transport.send({
+        type : &#x27;process:exception&#x27;,
+        data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+      }, true);
+
+      if (!process.listeners(listener).filter(function (listener) {
+        return listener !== uncaughtListener;
+      }).length) {
+
+        if (listener == &#x27;uncaughtException&#x27;)
+          process.exit(1);
+      }
+    }
+  }
+
+  if (opts.errors === true &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length === 2) {
+    process.once(&#x27;uncaughtException&#x27;, getUncaughtExceptionListener(&#x27;uncaughtException&#x27;));
+    process.once(&#x27;unhandledRejection&#x27;, getUncaughtExceptionListener(&#x27;unhandledRejection&#x27;));
+  }
+  else if (opts.errors === false
+           &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length !== 2) {
+    process.removeAllListeners(&#x27;uncaughtException&#x27;);
+    process.removeAllListeners(&#x27;unhandledRejection&#x27;);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.catchPorts" id="apidoc.element.pmx.catchPorts">
+        function <span class="apidocSignatureSpan">pmx.</span>catchPorts
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">catchPorts = function () {
+  var ports_list = [];
+  var opened_ports = &#x27;N/A&#x27;;
+
+  Probe.probe().metric({
+    name    : &#x27;Open ports&#x27;,
+    value   : function() { return opened_ports; }
+  });
+
+  var original_listen = net_module.Server.prototype.listen;
+
+  net_module.Server.prototype.listen = function() {
+    var port = parseInt(arguments[0]);
+
+    if (!isNaN(port) &#x26;&#x26; ports_list.indexOf(port) === -1) {
+      ports_list.push(port);
+      opened_ports = ports_list.sort().join();
+    }
+
+    this.once(&#x27;close&#x27;, function() {
+      if (ports_list.indexOf(port) &#x3e; -1) {
+        ports_list.splice(ports_list.indexOf(port), 1);
+        opened_ports = ports_list.sort().join();
+      }
+    });
+
+    return original_listen.apply(this, arguments);
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.catchTraffic" id="apidoc.element.pmx.catchTraffic">
+        function <span class="apidocSignatureSpan">pmx.</span>catchTraffic
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">catchTraffic = function () {
+  var download = 0;
+  var upload   = 0;
+  var up       = &#x27;0 B/sec&#x27;;
+  var down     = &#x27;0 B/sec&#x27;;
+
+  var filter = function(bytes) {
+    var to_fixed = 0;
+
+    if (bytes === 0)
+      ;
+    else if (bytes &#x3c; 1024)
+      to_fixed = 6;
+    else if (bytes &#x3c; (1024 * 1024))
+      to_fixed = 3;
+    else
+      to_fixed = 2;
+
+    bytes = (bytes / (1024 * 1024)).toFixed(to_fixed);
+
+    var cut_zeros = 0;
+
+    for (var i = (bytes.length - 1); i &#x3e; 0; --i) {
+      if (bytes[i] === &#x27;.&#x27;) {
+        ++cut_zeros;
+        break;
+      }
+      if (bytes[i] !== &#x27;0&#x27;)
+        break;
+      ++cut_zeros;
+    }
+
+    if (cut_zeros &#x3e; 0)
+      bytes = bytes.slice(0, -(cut_zeros));
+
+    return (bytes + &#x27; MB/s&#x27;);
+  };
+
+  var interval = setInterval(function() {
+    up = filter(upload);
+    down = filter(download);
+    upload = 0;
+    download = 0;
+  }, 999);
+
+  interval.unref();
+
+  Probe.probe().metric({
+    name     : &#x27;Network Download&#x27;,
+    agg_type : &#x27;sum&#x27;,
+    value    : function() { return down; }
+  });
+
+  Probe.probe().metric({
+    name     : &#x27;Network Upload&#x27;,
+    agg_type : &#x27;sum&#x27;,
+    value    : function() { return up; }
+  });
+
+  var original_write = net_module.Socket.prototype.write;
+
+  net_module.Socket.prototype.write = function(data) {
+    if (data.length)
+      upload += data.length;
+    return original_write.apply(this, arguments);
+  };
+
+  var original_read = net_module.Socket.prototype.read;
+
+  net_module.Socket.prototype.read = function() {
+
+    if (!this.monitored) {
+      this.monitored = true;
+
+      this.on(&#x27;data&#x27;, function(data) {
+        if (data.length)
+          download += data.length;
+      });
+    }
+
+    return original_read.apply(this, arguments);
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.configureModule" id="apidoc.element.pmx.configureModule">
+        function <span class="apidocSignatureSpan">pmx.</span>configureModule
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">configureModule = function (opts) {
+  Transport.send({
+    type : &#x27;axm:option:configuration&#x27;,
+    data : opts
+  }, false);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+} catch(e) {
+  //console.error(e);
+  //console.error(&#x27;Error while parsing configuration in environment (%s)&#x27;, conf.module_name);
+}
+
+if (do_not_tell_pm2 == true) return conf;
+
+Options.<span class="apidocCodeKeywordSpan">configureModule</span>(conf);
+return conf;
+};
+
+Options.getPID = function(file) {
+if (typeof(file) === &#x27;number&#x27;)
+  return file;
+return parseInt(fs.readFileSync(file).toString());
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.detectV8Profiler" id="apidoc.element.pmx.detectV8Profiler">
+        function <span class="apidocSignatureSpan">pmx.</span>detectV8Profiler
+        <span class="apidocSignatureSpan">(cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">detectV8Profiler = function (cb) {
+  var require_paths = require.main.paths.slice();
+
+  (function look_for_profiler(require_paths) {
+    if (!require_paths[0])
+      return cb(new Error(&#x27;Module not found&#x27;));
+
+    var profiler_path = path.join(require_paths[0], &#x27;v8-profiler&#x27;);
+
+    fs.exists(profiler_path, function(exist) {
+      if (exist)
+        return cb(null, profiler_path);
+
+      require_paths.shift();
+      return look_for_profiler(require_paths);
+    });
+    return false;
+  })(require_paths);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.emit" id="apidoc.element.pmx.emit">
+        function <span class="apidocSignatureSpan">pmx.</span>emit
+        <span class="apidocSignatureSpan">(name, data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">emit = function (name, data) {
+  if (!name)
+    return console.error(&#x27;[AXM] emit.name is missing&#x27;);
+  if (!data)
+    return console.error(&#x27;[AXM] emit.data is missing&#x27;);
+
+  var inflight_obj = {};
+
+  if (typeof(data) == &#x27;object&#x27;)
+    inflight_obj = JSON.parse(stringify(data));
+  else {
+    inflight_obj.data = data;
+  }
+
+  inflight_obj.__name = name;
+
+  Transport.send({
+    type : &#x27;human:event&#x27;,
+    data : inflight_obj
+  }, true);
+  return false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+Emit events and get historical and statistics.
+This is available in the **Events** page of Keymetrics.
+
+```javascript
+var pmx = require(&#x27;pmx&#x27;);
+
+pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
+  user : &#x27;Alex registered&#x27;,
+  email : &#x27;thorustor@gmail.com&#x27;
+});
+```
+
+## Application level network traffic monitoring / Display used ports
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.enableProbe" id="apidoc.element.pmx.enableProbe">
+        function <span class="apidocSignatureSpan">pmx.</span>enableProbe
+        <span class="apidocSignatureSpan">(custom_namespace)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
+  if (!custom_namespace)
+    custom_namespace = &#x27;axm&#x27;;
+
+  if (!global[custom_namespace])
+    global[custom_namespace] = {};
+
+  if (this.interval)
+    return global[custom_namespace];
+
+  this.interval = setInterval(function() {
+    Transport.send({
+      type : &#x27;axm:monitor&#x27;,
+      data : cookData(global[custom_namespace])
+    });
+  }, 990);
+
+  this.interval.unref();
+
+  return global[custom_namespace];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.enableProbes" id="apidoc.element.pmx.enableProbes">
+        function <span class="apidocSignatureSpan">pmx.</span>enableProbes
+        <span class="apidocSignatureSpan">(custom_namespace)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
+  if (!custom_namespace)
+    custom_namespace = &#x27;axm&#x27;;
+
+  if (!global[custom_namespace])
+    global[custom_namespace] = {};
+
+  if (this.interval)
+    return global[custom_namespace];
+
+  this.interval = setInterval(function() {
+    Transport.send({
+      type : &#x27;axm:monitor&#x27;,
+      data : cookData(global[custom_namespace])
+    });
+  }, 990);
+
+  this.interval.unref();
+
+  return global[custom_namespace];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.exposeProfiling" id="apidoc.element.pmx.exposeProfiling">
+        function <span class="apidocSignatureSpan">pmx.</span>exposeProfiling
+        <span class="apidocSignatureSpan">(pmx, profiler_path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">exposeProfiling = function (pmx, profiler_path) {
+  try {
+    var profiler = require(profiler_path);
+  } catch(e) {
+    debug(&#x27;v8-profiler module not installed&#x27;, e);
+    return false;
+  }
+
+  debug(&#x27;v8-profiler sucessfully enabled&#x27;);
+
+<span class="apidocCodeCommentSpan">  /**
+   * Tell Keymetrics that profiling is possible
+   * (flag available in axm_options object)
+   */
+</span>  Options.configureModule({
+    heapdump : true
+  });
+
+  /**
+   * Heap snapshot
+   */
+  pmx.action(&#x27;km:heapdump&#x27;, function(reply) {
+    var dump_file = path.join(os.tmpDir(), Date.now() + &#x27;.heapsnapshot&#x27;);
+
+    var snapshot = profiler.takeSnapshot(&#x27;km-heap-snapshot&#x27;);
+    var buffer    = &#x27;&#x27;;
+
+    snapshot.serialize(
+      function iterator(data, length) {
+        buffer += data;
+      }, function complete() {
+        snapshot.delete();
+
+        fs.writeFile(dump_file, buffer, function (err) {
+          debug(&#x27;Heap dump file flushed (e=&#x27;, err);
+
+          if (err) {
+            return reply({
+              success   : false,
+              err : err
+            });
+          }
+          return reply({
+            success   : true,
+            heapdump  : true,
+            dump_file : dump_file
+          });
+        });
+      }
+    );
+  });
+
+  /**
+   * CPU profiling snapshot
+   */
+  var ns_cpu_profiling        = &#x27;km-cpu-profiling&#x27;;
+  var cpu_dump_file = path.join(os.tmpDir(), Date.now() + &#x27;.cpuprofile&#x27;);
+
+  pmx.action(&#x27;km:cpu:profiling:start&#x27;, function(reply) {
+    profiler.startProfiling(ns_cpu_profiling);
+    return reply({ success : true });
+  });
+
+  pmx.action(&#x27;km:cpu:profiling:stop&#x27;, function(reply) {
+    var cpu = profiler.stopProfiling(ns_cpu_profiling);
+
+    fs.writeFile(cpu_dump_file, JSON.stringify(cpu), function(err) {
+      if (err) {
+        return reply({
+          success   : false,
+          err : err
+        });
+      }
+      return reply({
+        success     : true,
+        cpuprofile  : true,
+        dump_file   : cpu_dump_file
+      });
+    });
+  });
+
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.expressErrorHandler" id="apidoc.element.pmx.expressErrorHandler">
+        function <span class="apidocSignatureSpan">pmx.</span>expressErrorHandler
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">expressErrorHandler = function () {
+  var self = this;
+
+  Options.configureModule({
+    error : true
+  });
+
+  return function errorHandler(err, req, res, next) {
+    if (res.statusCode &#x3c; 400) res.statusCode = 500;
+
+    //debug(err.stack || err);
+
+    err.url = req.url;
+    err.component = req.url;
+    err.action = req.method;
+    err.params = req.body;
+    err.session = req.session;
+
+    Transport.send({
+      type  : &#x27;process:exception&#x27;,
+      data  : jsonize(err)
+    }, true);
+    return next(err);
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// All my routes
+app.get(&#x27;/&#x27; ...);
+app.post(...);
+// All my routes
+
+// Here I attach the middleware to get more verbosity on exception thrown
+app.use(pmx.<span class="apidocCodeKeywordSpan">expressErrorHandler</span>());
+```
+
+## Emit Events
+
+Emit events and get historical and statistics.
+This is available in the **Events** page of Keymetrics.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.getConf" id="apidoc.element.pmx.getConf">
+        function <span class="apidocSignatureSpan">pmx.</span>getConf
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getConf = function () {
+  return this._pmx_conf;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  Probe._var[opts.name].alert = new Alert(alert_opts, {name : opts.name});
+}
+}
+
+Probe.probe = function() {
+var self = this;
+// Get module configuration to enable alerts
+if (this.getConf &#x26;&#x26; this.<span class="apidocCodeKeywordSpan">getConf</span>())
+  Probe._alert_activated = this.getConf().alert_enabled || true;
+else
+  Probe._alert_activated = false;
+
+if (Probe._started == false) {
+  Probe._started = true;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.getEnv" id="apidoc.element.pmx.getEnv">
+        function <span class="apidocSignatureSpan">pmx.</span>getEnv
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getEnv = function () {
+  return process.env;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.getPID" id="apidoc.element.pmx.getPID">
+        function <span class="apidocSignatureSpan">pmx.</span>getPID
+        <span class="apidocSignatureSpan">(file)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getPID = function (file) {
+  if (typeof(file) === &#x27;number&#x27;)
+    return file;
+  return parseInt(fs.readFileSync(file).toString());
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.http" id="apidoc.element.pmx.http">
+        function <span class="apidocSignatureSpan">pmx.</span>http
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">http = function (opts) {
+  var Module = require(&#x27;module&#x27;);
+
+  debug(&#x27;Wrapping HTTP routes&#x27;);
+
+  if (Array.isArray(opts)) {
+    var routes = JSON.parse(JSON.stringify(opts));
+    opts = {
+      http          : true,
+      http_latency  : 200,
+      http_code     : 500,
+      ignore_routes : routes
+    };
+  }
+  opts = util._extend({
+    http          : true,
+    http_latency  : 200,
+    http_code     : 500,
+    ignore_routes : []
+  }, opts);
+
+  Proxy.wrap(Module, &#x27;_load&#x27;, function(load) {
+    if (load.__axm_original) {
+      debug(&#x27;HTTP routes have already been wrapped before&#x27;);
+
+      Options.configureModule({
+        latency : opts.http
+      });
+
+      if (opts.http === false) {
+        return function(file) { return load.__axm_original.apply(this, arguments) };
+      } else {
+        return function(file) {
+          if (file === &#x27;http&#x27; || file === &#x27;https&#x27;)
+            return SimpleHttpWrap(opts, load.__axm_original.apply(this, arguments));
+          else
+            return load.__axm_original.apply(this, arguments);
+        };
+      }
+    }
+
+    return function(file) {
+      if (opts.http &#x26;&#x26;
+          (file === &#x27;http&#x27; || file === &#x27;https&#x27;)) {
+        debug(&#x27;http module being required&#x27;);
+        Options.configureModule({
+          latency : true
+        });
+        return SimpleHttpWrap(opts, load.apply(this, arguments));
+      }
+      else
+        return load.apply(this, arguments);
+    };
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.init" id="apidoc.element.pmx.init">
+        function <span class="apidocSignatureSpan">pmx.</span>init
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">init = function (opts) {
+  if (!opts) opts = {};
+
+  opts = util._extend({
+    default_actions : true,
+    transactions  : false,
+    http          : true,
+    http_latency  : 200,
+    http_code     : 500,
+    ignore_routes : [],
+    profiling     : true,
+    errors        : true,
+    // By default if you add alert subfield in custom
+    // it&#x27;s going to be enabled
+    alert_enabled : true,
+    custom_probes : true,
+    network       : false,
+    ports         : false,
+
+    // VXX options
+    // ignoreFilter.url is aliased to ignore_routes
+    ignoreFilter: {
+      &#x27;url&#x27;: [],
+      &#x27;method&#x27;: [&#x27;OPTIONS&#x27;]
+    },
+    // &#x27;express&#x27;, &#x27;hapi&#x27;, &#x27;http&#x27;, &#x27;restify&#x27;
+    excludedHooks: []
+  }, opts);
+
+  opts = Configuration.init(opts);
+  this._pmx_conf = opts;
+
+  if (opts.ports)
+    PMX.catchPorts();
+  if (opts.network)
+    PMX.catchTraffic();
+
+  if (opts.transactions)
+    PMX.tracing(PMX, opts);
+  if (opts.http)
+    PMX.http(opts);
+
+  PMX.catchAll(opts);
+
+  if (opts.profiling)
+    Profiling.v8Profiling(PMX);
+
+  if (opts.custom_probes == true) {
+    // Event loop monitoring
+    require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+  }
+
+  if (opts.default_actions == true) {
+    //require(&#x27;./actions/default.js&#x27;)(PMX);
+  }
+
+  opts.isModule = false;
+  return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+You can monitor the network usage of a specific application by adding the option `network: true` when initializing PMX. If you enable
+ the flag `ports: true` when you init pmx it will show which ports your app is listenting on.
+
+These metrics will be shown in the Keymetrics Dashboard in the Custom Metrics section.
+
+Example:
+
+```javascript
+pmx.<span class="apidocCodeKeywordSpan">init</span>({
+  [...]
+  network : true, // Allow application level network monitoring
+  ports   : true  // Display ports used by the application
+});
+```
+
+## Advanced PMX configuration
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.initModule" id="apidoc.element.pmx.initModule">
+        function <span class="apidocSignatureSpan">pmx.</span>initModule
+        <span class="apidocSignatureSpan">(opts, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">initModule = function (opts, cb) {
+  if (!opts) opts = {};
+
+  opts = util._extend({
+    alert_enabled    : true,
+    widget           : {}
+  }, opts);
+
+  opts.widget = util._extend({
+    type : &#x27;generic&#x27;,
+    logo : &#x27;https://app.keymetrics.io/img/logo/keymetrics-300.png&#x27;,
+    theme            : [&#x27;#111111&#x27;, &#x27;#1B2228&#x27;, &#x27;#807C7C&#x27;, &#x27;#807C7C&#x27;]
+  }, opts.widget);
+
+  opts.isModule = true;
+  opts = Configuration.init(opts);
+
+  // Force error catching
+  PMX.catchAll();
+
+  this._pmx_conf = opts;
+
+  if (cb &#x26;&#x26; typeof(cb) == &#x27;function&#x27;)
+    return cb(null, opts);
+
+  return opts;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.notify" id="apidoc.element.pmx.notify">
+        function <span class="apidocSignatureSpan">pmx.</span>notify
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">notify = function (err) {
+  var ret_err = this._interpretError(err);
+
+  // full_err
+  //debug(ret_err);
+
+  Transport.send({
+    type : &#x27;process:exception&#x27;,
+    data : ret_err
+  }, true);
+
+  return ret_err;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+### Custom alert notification
+
+If you need to alert about any critical errors you can do it programmatically:
+
+```javascript
+var pmx = require(&#x27;pmx&#x27;);
+
+pmx.<span class="apidocCodeKeywordSpan">notify</span>({ success : false });
+
+pmx.notify(&#x27;This is an error&#x27;);
+
+pmx.notify(new Error(&#x27;This is an error&#x27;));
+```
+
+### Add Verbosity to an Alert: Express Error handler
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.probe" id="apidoc.element.pmx.probe">
+        function <span class="apidocSignatureSpan">pmx.</span>probe
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">probe = function () {
+  var self = this;
+  // Get module configuration to enable alerts
+  if (this.getConf &#x26;&#x26; this.getConf())
+    Probe._alert_activated = this.getConf().alert_enabled || true;
+  else
+    Probe._alert_activated = false;
+
+  if (Probe._started == false) {
+    Probe._started = true;
+
+    var p_interval = setInterval(function() {
+      Transport.send({
+        type : &#x27;axm:monitor&#x27;,
+        data : cookData(Probe._var)
+      });
+      checkIssues(Probe._var);
+    }, 990);
+
+    p_interval.unref();
+  }
+
+  return {
+<span class="apidocCodeCommentSpan">    /**
+     * This reflect data to keymetrics
+     * pmx.transpose(&#x27;prop name&#x27;, fn)
+     *
+     * or
+     *
+     * pmx.transpose({
+     *   name : &#x27;variable name&#x27;,
+     *   data : function() { return value }
+     * });
+     */
+</span>    transpose : function(variable_name, reporter) {
+      if (typeof variable_name === &#x27;object&#x27;) {
+        reporter = variable_name.data;
+        variable_name = variable_name.name;
+      }
+
+      if (typeof reporter !== &#x27;function&#x27;) {
+        return console.error(&#x27;[PMX] reporter is not a function&#x27;);
+      }
+
+      Probe._var[variable_name] = {
+        value: reporter
+      };
+    },
+    metric : function(opts) {
+      var agg_type = opts.agg_type || Probe.default_aggregation;
+
+      if (!opts.name)
+        return console.error(&#x27;[Probe][Metric] Name not defined&#x27;);
+      if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
+        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+
+      Probe._var[opts.name] = {
+        value   : opts.value || 0,
+        agg_type: agg_type
+      };
+
+      /**
+       * Attach alert to: Probe._var[opts.name].alert
+       */
+      if (self.getConf)
+        attachAlert(opts, self.getConf());
+
+      return {
+        val : function() {
+          var value = Probe._var[opts.name].value;
+
+          if (typeof(value) == &#x27;function&#x27;)
+            value = value();
+
+          return value;
+        },
+        set : function(dt) {
+          Probe._var[opts.name].value = dt;
+        }
+      };
+    },
+    histogram : function(opts) {
+      if (!opts.name)
+        return console.error(&#x27;[Probe][Histogram] Name not defined&#x27;);
+      opts.measurement = opts.measurement || &#x27;mean&#x27;;
+      opts.unit = opts.unit || &#x27;&#x27;;
+      var agg_type = opts.agg_type || Probe.default_aggregation;
+
+      if (Probe.AVAILABLE_MEASUREMENTS.indexOf(opts.measurement) == -1)
+        return console.error(&#x27;[Probe][Histogram] Measure type %s does not exists&#x27;, opts.measurement);
+      if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
+        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+
+      var histogram = new Histogram(opts);
+
+      Probe._var[opts.name] = {
+        value: function() { return (Math.round(histogram.val() * 100) / 100) + &#x27;&#x27; + opts.unit },
+        agg_type: agg_type
+      };
+
+      /**
+       * Attach alert to: Probe._var[opts.name].alert
+       */
+      if (self.getConf)
+        attachAlert(opts, self.getConf());
+
+      return histogram;
+    },
+    meter : function(opts) {
+      var agg_type = opts.agg_type || Probe.default_aggregation;
+
+      if (!opts.name)
+        return console.error(&#x27;[Probe][Meter] Name not defined&#x27;);
+      if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
+        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+
+      opts.unit = opts.unit || &#x27;&#x27;;
+
+      var meter = new Meter(opts);
+
+      Probe._var[opts.name] = {
+        value: function() { return meter.val() + &#x27;&#x27; + opts.unit },
+        agg_type: agg_type
+      };
+
+      /**
+       * Attach alert to: Probe._var[opts.name].alert
+       */
+      if (self.getConf)
+        attachAlert(opts, self.getConf());
+
+      return meter;
+    },
+    counter : function(opts) {
+      var agg_type = opts.agg_type || Probe.default_aggregation;
+
+      if (!opts.name)
+        return console.error(&#x27;[Probe][Counter] Name not defined&#x27;);
+      if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
+        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+
+      var counter = new Counter();
+
+      Probe._var[opts.name] = {
+        value: ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  - eg. Monitor the mean of execution of a query into database
+
+### Metric: Simple value reporting
+
+This allow to expose values that can be read instantly.
+
+```javascript
+var probe = pmx.<span class="apidocCodeKeywordSpan">probe</span>();
+
+// Here the value function will be called each second to get the value
+// returned by Object.keys(users).length
+var metric = probe.metric({
+name    : &#x27;Realtime user&#x27;,
+value   : function() {
+  return Object.keys(users).length;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.resolvePidPaths" id="apidoc.element.pmx.resolvePidPaths">
+        function <span class="apidocSignatureSpan">pmx.</span>resolvePidPaths
+        <span class="apidocSignatureSpan">(filepaths)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">resolvePidPaths = function (filepaths) {
+  if (typeof(filepaths) === &#x27;number&#x27;)
+    return filepaths;
+
+  function detect(filepaths) {
+    var content = &#x27;&#x27;;
+
+    filepaths.some(function(filepath) {
+      try {
+        content = fs.readFileSync(filepath);
+      } catch(e) {
+        return false;
+      }
+      return true;
+    });
+
+    return content.toString().trim();
+  }
+
+  var ret = parseInt(detect(filepaths));
+
+  return isNaN(ret) ? null : ret;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.scopedAction" id="apidoc.element.pmx.scopedAction">
+        function <span class="apidocSignatureSpan">pmx.</span>scopedAction
+        <span class="apidocSignatureSpan">(action_name, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">scopedAction = function (action_name, fn) {
+
+  if (!action_name)
+    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+  if (!fn)
+    return console.error(&#x27;[PMX] callback is missing&#x27;);
+
+  if (!process.send) {
+    debug(&#x27;Process not running within PM2&#x27;);
+    return false;
+  }
+
+  // Notify the action
+  Transport.send({
+    type : &#x27;axm:action&#x27;,
+    data : {
+      action_name : action_name,
+      action_type : &#x27;scoped&#x27;
+    }
+  });
+
+  process.on(&#x27;message&#x27;, function(data) {
+    if (!data
+        || data.uuid === undefined
+        || data.action_name === undefined)
+      return false;
+
+    if (data.action_name === action_name) {
+      var res = {
+        send : function(dt) {
+          Transport.send({
+            type        : &#x27;axm:scoped_action:stream&#x27;,
+            data        : {
+              data        : dt,
+              uuid        : data.uuid,
+              action_name : action_name
+            }
+          });
+        },
+        error : function(dt) {
+          Transport.send({
+            type        : &#x27;axm:scoped_action:error&#x27;,
+            data        : {
+              data        : dt,
+              uuid        : data.uuid,
+              action_name : action_name
+            }
+          });
+        },
+        end : function(dt) {
+          Transport.send({
+            type        : &#x27;axm:scoped_action:end&#x27;,
+            data        : {
+              data        : dt,
+              uuid        : data.uuid,
+              action_name : action_name
+            }
+          });
+        }
+      };
+
+      var d = domain.create();
+
+      d.on(&#x27;error&#x27;, function(err) {
+        res.error(err.message || err.stack || err);
+        setTimeout(function() {
+          process.exit(1);
+        }, 300);
+      });
+
+      d.run(function() {
+        fn(data.opts || null, res);
+      });
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Scoped Actions are advanced remote actions that can be also triggered from Keymetrics.
+
+Two arguments are passed to the function, data (optional data sent from Keymetrics) and res that allows to emit log data and to
+end the scoped action.
+
+Example:
+
+```javascript
+pmx.<span class="apidocCodeKeywordSpan">scopedAction</span>(&#x27;long running lsof&#x27;, function(data, res) {
+var child = spawn(&#x27;lsof&#x27;, []);
+
+child.stdout.on(&#x27;data&#x27;, function(chunk) {
+  chunk.toString().split(&#x27;\n&#x27;).forEach(function(line) {
+    res.send(line); // This send log to Keymetrics to be saved (for tracking)
+  });
+});
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.stopProbe" id="apidoc.element.pmx.stopProbe">
+        function <span class="apidocSignatureSpan">pmx.</span>stopProbe
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function stopProbing() {
+  clearInterval(this.interval);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.stopProbes" id="apidoc.element.pmx.stopProbes">
+        function <span class="apidocSignatureSpan">pmx.</span>stopProbes
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function stopProbing() {
+  clearInterval(this.interval);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.tracing" id="apidoc.element.pmx.tracing">
+        function <span class="apidocSignatureSpan">pmx.</span>tracing
+        <span class="apidocSignatureSpan">(pmx, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">tracing = function (pmx, opts) {
+
+  if (Array.isArray(opts.ignore_routes) &#x26;&#x26; opts.ignore_routes.length &#x3e; 0) {
+    opts.ignoreFilter.url = opts.ignore_routes;
+  }
+
+  Transaction.tracer = require(&#x27;vxx&#x27;).start(opts);
+
+  Options.configureModule({
+    tracing_enabled : true
+  });
+
+  // broadcast to pm2 aggregator
+  Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function(data) {
+    Transport.send({
+      type: &#x27;axm:trace&#x27;,
+      data: data
+    })
+  })
+
+  // Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function (data) {
+  //   if (!opts.custom_probes) return;
+  //   // TODO: mine tracing data and require custom probes
+  //<span class="apidocCodeCommentSpan">   /*try {
+  //     var custom_probe = require(&#x27;./probes/&#x27; + modul)(pmx, Transaction.tracer)
+  //   } catch (err) { }*/
+</span>  // })
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.v8Profiling" id="apidoc.element.pmx.v8Profiling">
+        function <span class="apidocSignatureSpan">pmx.</span>v8Profiling
+        <span class="apidocSignatureSpan">(pmx)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">v8Profiling = function (pmx) {
+  Profiling.detectV8Profiler(function(err, profiler_path) {
+    if (err)
+      return false;
+    return Profiling.exposeProfiling(pmx, profiler_path);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.Probe" id="apidoc.module.pmx.Probe">module pmx.Probe</a></h1>
+
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.Probe.probe" id="apidoc.element.pmx.Probe.probe">
+        function <span class="apidocSignatureSpan">pmx.Probe.</span>probe
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">probe = function () {
+  var self = this;
+  // Get module configuration to enable alerts
+  if (this.getConf &#x26;&#x26; this.getConf())
+    Probe._alert_activated = this.getConf().alert_enabled || true;
+  else
+    Probe._alert_activated = false;
+
+  if (Probe._started == false) {
+    Probe._started = true;
+
+    var p_interval = setInterval(function() {
+      Transport.send({
+        type : &#x27;axm:monitor&#x27;,
+        data : cookData(Probe._var)
+      });
+      checkIssues(Probe._var);
+    }, 990);
+
+    p_interval.unref();
+  }
+
+  return {
+<span class="apidocCodeCommentSpan">    /**
+     * This reflect data to keymetrics
+     * pmx.transpose(&#x27;prop name&#x27;, fn)
+     *
+     * or
+     *
+     * pmx.transpose({
+     *   name : &#x27;variable name&#x27;,
+     *   data : function() { return value }
+     * });
+     */
+</span>    transpose : function(variable_name, reporter) {
+      if (typeof variable_name === &#x27;object&#x27;) {
+        reporter = variable_name.data;
+        variable_name = variable_name.name;
+      }
+
+      if (typeof reporter !== &#x27;function&#x27;) {
+        return console.error(&#x27;[PMX] reporter is not a function&#x27;);
+      }
+
+      Probe._var[variable_name] = {
+        value: reporter
+      };
+    },
+    metric : function(opts) {
+      var agg_type = opts.agg_type || Probe.default_aggregation;
+
+      if (!opts.name)
+        return console.error(&#x27;[Probe][Metric] Name not defined&#x27;);
+      if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
+        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+
+      Probe._var[opts.name] = {
+        value   : opts.value || 0,
+        agg_type: agg_type
+      };
+
+      /**
+       * Attach alert to: Probe._var[opts.name].alert
+       */
+      if (self.getConf)
+        attachAlert(opts, self.getConf());
+
+      return {
+        val : function() {
+          var value = Probe._var[opts.name].value;
+
+          if (typeof(value) == &#x27;function&#x27;)
+            value = value();
+
+          return value;
+        },
+        set : function(dt) {
+          Probe._var[opts.name].value = dt;
+        }
+      };
+    },
+    histogram : function(opts) {
+      if (!opts.name)
+        return console.error(&#x27;[Probe][Histogram] Name not defined&#x27;);
+      opts.measurement = opts.measurement || &#x27;mean&#x27;;
+      opts.unit = opts.unit || &#x27;&#x27;;
+      var agg_type = opts.agg_type || Probe.default_aggregation;
+
+      if (Probe.AVAILABLE_MEASUREMENTS.indexOf(opts.measurement) == -1)
+        return console.error(&#x27;[Probe][Histogram] Measure type %s does not exists&#x27;, opts.measurement);
+      if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
+        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+
+      var histogram = new Histogram(opts);
+
+      Probe._var[opts.name] = {
+        value: function() { return (Math.round(histogram.val() * 100) / 100) + &#x27;&#x27; + opts.unit },
+        agg_type: agg_type
+      };
+
+      /**
+       * Attach alert to: Probe._var[opts.name].alert
+       */
+      if (self.getConf)
+        attachAlert(opts, self.getConf());
+
+      return histogram;
+    },
+    meter : function(opts) {
+      var agg_type = opts.agg_type || Probe.default_aggregation;
+
+      if (!opts.name)
+        return console.error(&#x27;[Probe][Meter] Name not defined&#x27;);
+      if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
+        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+
+      opts.unit = opts.unit || &#x27;&#x27;;
+
+      var meter = new Meter(opts);
+
+      Probe._var[opts.name] = {
+        value: function() { return meter.val() + &#x27;&#x27; + opts.unit },
+        agg_type: agg_type
+      };
+
+      /**
+       * Attach alert to: Probe._var[opts.name].alert
+       */
+      if (self.getConf)
+        attachAlert(opts, self.getConf());
+
+      return meter;
+    },
+    counter : function(opts) {
+      var agg_type = opts.agg_type || Probe.default_aggregation;
+
+      if (!opts.name)
+        return console.error(&#x27;[Probe][Counter] Name not defined&#x27;);
+      if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
+        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+
+      var counter = new Counter();
+
+      Probe._var[opts.name] = {
+        value: ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  - eg. Monitor the mean of execution of a query into database
+
+### Metric: Simple value reporting
+
+This allow to expose values that can be read instantly.
+
+```javascript
+var probe = pmx.<span class="apidocCodeKeywordSpan">probe</span>();
+
+// Here the value function will be called each second to get the value
+// returned by Object.keys(users).length
+var metric = probe.metric({
+name    : &#x27;Realtime user&#x27;,
+value   : function() {
+  return Object.keys(users).length;
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.actions" id="apidoc.module.pmx.actions">module pmx.actions</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.actions.action" id="apidoc.element.pmx.actions.action">
+        function <span class="apidocSignatureSpan">pmx.actions.</span>action
+        <span class="apidocSignatureSpan">(action_name, opts, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">action = function (action_name, opts, fn) {
+  if (!fn) {
+    fn = opts;
+    opts = null;
+  }
+
+  if (!action_name)
+    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+  if (!fn)
+    return console.error(&#x27;[PMX] emit.data is mission&#x27;);
+
+  if (!process.send) {
+    debug(&#x27;Process not running within PM2&#x27;);
+    return false;
+  }
+
+  // Notify the action
+  Transport.send({
+    type : &#x27;axm:action&#x27;,
+    data : {
+      action_name : action_name,
+      opts        : opts,
+      arity       : fn.length
+    }
+  });
+
+  function reply(data) {
+    if (data.length) {
+      data._length = data.length;
+      delete data.length;
+    }
+
+    Transport.send({
+      type        : &#x27;axm:reply&#x27;,
+      data        : {
+        return      : data,
+        action_name : action_name
+      }
+    });
+  }
+
+  process.on(&#x27;message&#x27;, function(data) {
+    if (!data) return false;
+
+    // In case 2 arguments has been set but no options has been transmitted
+    if (fn.length === 2 &#x26;&#x26; typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+      return fn({}, reply);
+
+    // In case 1 arguments has been set but options has been transmitted
+    if (fn.length === 1 &#x26;&#x26; typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+      return fn(reply);
+
+<span class="apidocCodeCommentSpan">    /**
+     * Classical call
+     */
+</span>    if (typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+      return fn(reply);
+
+    /**
+     * If data is an object == v2 protocol
+     * Pass the opts as first argument
+     */
+    if (typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+      return fn(data.opts, reply);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Simple action allows to trigger a function from Keymetrics. The function takes a function as a parameter (reply here) and need to
+ be called once the job is finished.
+
+Example:
+
+```javascript
+var pmx = require(&#x27;pmx&#x27;);
+
+pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, function(reply) {
+  clean.db(function() {
+    /**
+     * reply() must be called at the end of the action
+     */
+     reply({success : true});
+  });
+});
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.actions.scopedAction" id="apidoc.element.pmx.actions.scopedAction">
+        function <span class="apidocSignatureSpan">pmx.actions.</span>scopedAction
+        <span class="apidocSignatureSpan">(action_name, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">scopedAction = function (action_name, fn) {
+
+  if (!action_name)
+    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+  if (!fn)
+    return console.error(&#x27;[PMX] callback is missing&#x27;);
+
+  if (!process.send) {
+    debug(&#x27;Process not running within PM2&#x27;);
+    return false;
+  }
+
+  // Notify the action
+  Transport.send({
+    type : &#x27;axm:action&#x27;,
+    data : {
+      action_name : action_name,
+      action_type : &#x27;scoped&#x27;
+    }
+  });
+
+  process.on(&#x27;message&#x27;, function(data) {
+    if (!data
+        || data.uuid === undefined
+        || data.action_name === undefined)
+      return false;
+
+    if (data.action_name === action_name) {
+      var res = {
+        send : function(dt) {
+          Transport.send({
+            type        : &#x27;axm:scoped_action:stream&#x27;,
+            data        : {
+              data        : dt,
+              uuid        : data.uuid,
+              action_name : action_name
+            }
+          });
+        },
+        error : function(dt) {
+          Transport.send({
+            type        : &#x27;axm:scoped_action:error&#x27;,
+            data        : {
+              data        : dt,
+              uuid        : data.uuid,
+              action_name : action_name
+            }
+          });
+        },
+        end : function(dt) {
+          Transport.send({
+            type        : &#x27;axm:scoped_action:end&#x27;,
+            data        : {
+              data        : dt,
+              uuid        : data.uuid,
+              action_name : action_name
+            }
+          });
+        }
+      };
+
+      var d = domain.create();
+
+      d.on(&#x27;error&#x27;, function(err) {
+        res.error(err.message || err.stack || err);
+        setTimeout(function() {
+          process.exit(1);
+        }, 300);
+      });
+
+      d.run(function() {
+        fn(data.opts || null, res);
+      });
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Scoped Actions are advanced remote actions that can be also triggered from Keymetrics.
+
+Two arguments are passed to the function, data (optional data sent from Keymetrics) and res that allows to emit log data and to
+end the scoped action.
+
+Example:
+
+```javascript
+pmx.<span class="apidocCodeKeywordSpan">scopedAction</span>(&#x27;long running lsof&#x27;, function(data, res) {
+var child = spawn(&#x27;lsof&#x27;, []);
+
+child.stdout.on(&#x27;data&#x27;, function(chunk) {
+  chunk.toString().split(&#x27;\n&#x27;).forEach(function(line) {
+    res.send(line); // This send log to Keymetrics to be saved (for tracking)
+  });
+});
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.common" id="apidoc.module.pmx.common">module pmx.common</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.common.getDate" id="apidoc.element.pmx.common.getDate">
+        function <span class="apidocSignatureSpan">pmx.common.</span>getDate
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getDate() {
+  return Math.round(Date.now() / 1000);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.configuration" id="apidoc.module.pmx.configuration">module pmx.configuration</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.configuration.configureModule" id="apidoc.element.pmx.configuration.configureModule">
+        function <span class="apidocSignatureSpan">pmx.configuration.</span>configureModule
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">configureModule = function (opts) {
+  Transport.send({
+    type : &#x27;axm:option:configuration&#x27;,
+    data : opts
+  }, false);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+} catch(e) {
+  //console.error(e);
+  //console.error(&#x27;Error while parsing configuration in environment (%s)&#x27;, conf.module_name);
+}
+
+if (do_not_tell_pm2 == true) return conf;
+
+Options.<span class="apidocCodeKeywordSpan">configureModule</span>(conf);
+return conf;
+};
+
+Options.getPID = function(file) {
+if (typeof(file) === &#x27;number&#x27;)
+  return file;
+return parseInt(fs.readFileSync(file).toString());
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.configuration.getPID" id="apidoc.element.pmx.configuration.getPID">
+        function <span class="apidocSignatureSpan">pmx.configuration.</span>getPID
+        <span class="apidocSignatureSpan">(file)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getPID = function (file) {
+  if (typeof(file) === &#x27;number&#x27;)
+    return file;
+  return parseInt(fs.readFileSync(file).toString());
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.configuration.init" id="apidoc.element.pmx.configuration.init">
+        function <span class="apidocSignatureSpan">pmx.configuration.</span>init
+        <span class="apidocSignatureSpan">(conf, do_not_tell_pm2)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">init = function (conf, do_not_tell_pm2) {
+  var package_filepath = findPackageJson();
+  var package_json;
+
+  if (!conf.module_conf)
+    conf.module_conf = {};
+
+  if (conf.isModule == true) {
+<span class="apidocCodeCommentSpan">    /**
+     * Merge package.json metadata
+     */
+</span>    try {
+      package_json = require(package_filepath);
+
+      conf.module_version = package_json.version;
+      conf.module_name    = package_json.name;
+      conf.description    = package_json.description;
+      conf.pmx_version    = null;
+
+      if (pkg.version)
+        conf.pmx_version    = pkg.version;
+
+      if (package_json.config) {
+        conf = util._extend(conf, package_json.config);
+        conf.module_conf = package_json.config;
+      }
+    } catch(e) {
+      throw new Error(e);
+    }
+  } else {
+    conf.module_name = process.env.name || &#x27;outside-pm2&#x27;;
+    try {
+      package_json = require(package_filepath);
+
+      conf.module_version = package_json.version;
+      conf.pmx_version    = null;
+
+      if (pkg.version)
+        conf.pmx_version    = pkg.version;
+
+      if (package_json.config) {
+        conf = util._extend(conf, package_json.config);
+        conf.module_conf = package_json.config;
+      }
+    } catch(e) {
+    }
+  }
+
+  /**
+   * If custom variables has been set, merge with returned configuration
+   */
+  try {
+    if (process.env[conf.module_name]) {
+      var casted_conf = Autocast(JSON.parse(process.env[conf.module_name]));
+      conf = util._extend(conf, casted_conf);
+      // Do not display probe configuration in Keymetrics
+      delete casted_conf.probes;
+      // This is the configuration variable modifiable from keymetrics
+      conf.module_conf = JSON.parse(JSON.stringify(util._extend(conf.module_conf, casted_conf)));
+
+      // Obfuscate passwords
+      Object.keys(conf.module_conf).forEach(function(key) {
+        if ((key == &#x27;password&#x27; || key == &#x27;passwd&#x27;) &#x26;&#x26;
+            conf.module_conf[key].length &#x3e;= 1) {
+          conf.module_conf[key] = &#x27;Password hidden&#x27;;
+        }
+
+      });
+    }
+  } catch(e) {
+    //console.error(e);
+    //console.error(&#x27;Error while parsing configuration in environment (%s)&#x27;, conf.module_name);
+  }
+
+  if (do_not_tell_pm2 == true) return conf;
+
+  Options.configureModule(conf);
+  return conf;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+You can monitor the network usage of a specific application by adding the option `network: true` when initializing PMX. If you enable
+ the flag `ports: true` when you init pmx it will show which ports your app is listenting on.
+
+These metrics will be shown in the Keymetrics Dashboard in the Custom Metrics section.
+
+Example:
+
+```javascript
+pmx.<span class="apidocCodeKeywordSpan">init</span>({
+  [...]
+  network : true, // Allow application level network monitoring
+  ports   : true  // Display ports used by the application
+});
+```
+
+## Advanced PMX configuration
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.configuration.resolvePidPaths" id="apidoc.element.pmx.configuration.resolvePidPaths">
+        function <span class="apidocSignatureSpan">pmx.configuration.</span>resolvePidPaths
+        <span class="apidocSignatureSpan">(filepaths)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">resolvePidPaths = function (filepaths) {
+  if (typeof(filepaths) === &#x27;number&#x27;)
+    return filepaths;
+
+  function detect(filepaths) {
+    var content = &#x27;&#x27;;
+
+    filepaths.some(function(filepath) {
+      try {
+        content = fs.readFileSync(filepath);
+      } catch(e) {
+        return false;
+      }
+      return true;
+    });
+
+    return content.toString().trim();
+  }
+
+  var ret = parseInt(detect(filepaths));
+
+  return isNaN(ret) ? null : ret;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.events" id="apidoc.module.pmx.events">module pmx.events</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.events.emit" id="apidoc.element.pmx.events.emit">
+        function <span class="apidocSignatureSpan">pmx.events.</span>emit
+        <span class="apidocSignatureSpan">(name, data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">emit = function (name, data) {
+  if (!name)
+    return console.error(&#x27;[AXM] emit.name is missing&#x27;);
+  if (!data)
+    return console.error(&#x27;[AXM] emit.data is missing&#x27;);
+
+  var inflight_obj = {};
+
+  if (typeof(data) == &#x27;object&#x27;)
+    inflight_obj = JSON.parse(stringify(data));
+  else {
+    inflight_obj.data = data;
+  }
+
+  inflight_obj.__name = name;
+
+  Transport.send({
+    type : &#x27;human:event&#x27;,
+    data : inflight_obj
+  }, true);
+  return false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+Emit events and get historical and statistics.
+This is available in the **Events** page of Keymetrics.
+
+```javascript
+var pmx = require(&#x27;pmx&#x27;);
+
+pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
+  user : &#x27;Alex registered&#x27;,
+  email : &#x27;thorustor@gmail.com&#x27;
+});
+```
+
+## Application level network traffic monitoring / Display used ports
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.monitor" id="apidoc.module.pmx.monitor">module pmx.monitor</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.monitor.enableProbe" id="apidoc.element.pmx.monitor.enableProbe">
+        function <span class="apidocSignatureSpan">pmx.monitor.</span>enableProbe
+        <span class="apidocSignatureSpan">(custom_namespace)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
+  if (!custom_namespace)
+    custom_namespace = &#x27;axm&#x27;;
+
+  if (!global[custom_namespace])
+    global[custom_namespace] = {};
+
+  if (this.interval)
+    return global[custom_namespace];
+
+  this.interval = setInterval(function() {
+    Transport.send({
+      type : &#x27;axm:monitor&#x27;,
+      data : cookData(global[custom_namespace])
+    });
+  }, 990);
+
+  this.interval.unref();
+
+  return global[custom_namespace];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.monitor.enableProbes" id="apidoc.element.pmx.monitor.enableProbes">
+        function <span class="apidocSignatureSpan">pmx.monitor.</span>enableProbes
+        <span class="apidocSignatureSpan">(custom_namespace)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
+  if (!custom_namespace)
+    custom_namespace = &#x27;axm&#x27;;
+
+  if (!global[custom_namespace])
+    global[custom_namespace] = {};
+
+  if (this.interval)
+    return global[custom_namespace];
+
+  this.interval = setInterval(function() {
+    Transport.send({
+      type : &#x27;axm:monitor&#x27;,
+      data : cookData(global[custom_namespace])
+    });
+  }, 990);
+
+  this.interval.unref();
+
+  return global[custom_namespace];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.monitor.stopProbe" id="apidoc.element.pmx.monitor.stopProbe">
+        function <span class="apidocSignatureSpan">pmx.monitor.</span>stopProbe
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function stopProbing() {
+  clearInterval(this.interval);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.monitor.stopProbes" id="apidoc.element.pmx.monitor.stopProbes">
+        function <span class="apidocSignatureSpan">pmx.monitor.</span>stopProbes
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function stopProbing() {
+  clearInterval(this.interval);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.network" id="apidoc.module.pmx.network">module pmx.network</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.network.catchPorts" id="apidoc.element.pmx.network.catchPorts">
+        function <span class="apidocSignatureSpan">pmx.network.</span>catchPorts
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">catchPorts = function () {
+  var ports_list = [];
+  var opened_ports = &#x27;N/A&#x27;;
+
+  Probe.probe().metric({
+    name    : &#x27;Open ports&#x27;,
+    value   : function() { return opened_ports; }
+  });
+
+  var original_listen = net_module.Server.prototype.listen;
+
+  net_module.Server.prototype.listen = function() {
+    var port = parseInt(arguments[0]);
+
+    if (!isNaN(port) &#x26;&#x26; ports_list.indexOf(port) === -1) {
+      ports_list.push(port);
+      opened_ports = ports_list.sort().join();
+    }
+
+    this.once(&#x27;close&#x27;, function() {
+      if (ports_list.indexOf(port) &#x3e; -1) {
+        ports_list.splice(ports_list.indexOf(port), 1);
+        opened_ports = ports_list.sort().join();
+      }
+    });
+
+    return original_listen.apply(this, arguments);
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.network.catchTraffic" id="apidoc.element.pmx.network.catchTraffic">
+        function <span class="apidocSignatureSpan">pmx.network.</span>catchTraffic
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">catchTraffic = function () {
+  var download = 0;
+  var upload   = 0;
+  var up       = &#x27;0 B/sec&#x27;;
+  var down     = &#x27;0 B/sec&#x27;;
+
+  var filter = function(bytes) {
+    var to_fixed = 0;
+
+    if (bytes === 0)
+      ;
+    else if (bytes &#x3c; 1024)
+      to_fixed = 6;
+    else if (bytes &#x3c; (1024 * 1024))
+      to_fixed = 3;
+    else
+      to_fixed = 2;
+
+    bytes = (bytes / (1024 * 1024)).toFixed(to_fixed);
+
+    var cut_zeros = 0;
+
+    for (var i = (bytes.length - 1); i &#x3e; 0; --i) {
+      if (bytes[i] === &#x27;.&#x27;) {
+        ++cut_zeros;
+        break;
+      }
+      if (bytes[i] !== &#x27;0&#x27;)
+        break;
+      ++cut_zeros;
+    }
+
+    if (cut_zeros &#x3e; 0)
+      bytes = bytes.slice(0, -(cut_zeros));
+
+    return (bytes + &#x27; MB/s&#x27;);
+  };
+
+  var interval = setInterval(function() {
+    up = filter(upload);
+    down = filter(download);
+    upload = 0;
+    download = 0;
+  }, 999);
+
+  interval.unref();
+
+  Probe.probe().metric({
+    name     : &#x27;Network Download&#x27;,
+    agg_type : &#x27;sum&#x27;,
+    value    : function() { return down; }
+  });
+
+  Probe.probe().metric({
+    name     : &#x27;Network Upload&#x27;,
+    agg_type : &#x27;sum&#x27;,
+    value    : function() { return up; }
+  });
+
+  var original_write = net_module.Socket.prototype.write;
+
+  net_module.Socket.prototype.write = function(data) {
+    if (data.length)
+      upload += data.length;
+    return original_write.apply(this, arguments);
+  };
+
+  var original_read = net_module.Socket.prototype.read;
+
+  net_module.Socket.prototype.read = function() {
+
+    if (!this.monitored) {
+      this.monitored = true;
+
+      this.on(&#x27;data&#x27;, function(data) {
+        if (data.length)
+          download += data.length;
+      });
+    }
+
+    return original_read.apply(this, arguments);
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.notify" id="apidoc.module.pmx.notify">module pmx.notify</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.notify.notify" id="apidoc.element.pmx.notify.notify">
+        function <span class="apidocSignatureSpan">pmx.</span>notify
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">notify = function (err) {
+  var ret_err = this._interpretError(err);
+
+  // full_err
+  //debug(ret_err);
+
+  Transport.send({
+    type : &#x27;process:exception&#x27;,
+    data : ret_err
+  }, true);
+
+  return ret_err;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+### Custom alert notification
+
+If you need to alert about any critical errors you can do it programmatically:
+
+```javascript
+var pmx = require(&#x27;pmx&#x27;);
+
+pmx.<span class="apidocCodeKeywordSpan">notify</span>({ success : false });
+
+pmx.notify(&#x27;This is an error&#x27;);
+
+pmx.notify(new Error(&#x27;This is an error&#x27;));
+```
+
+### Add Verbosity to an Alert: Express Error handler
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.notify._interpretError" id="apidoc.element.pmx.notify._interpretError">
+        function <span class="apidocSignatureSpan">pmx.notify.</span>_interpretError
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_interpretError = function (err) {
+  var s_err = {};
+
+  if (typeof(err) === &#x27;string&#x27;) {
+    // Simple string processing
+    s_err.message = err;
+    s_err.stack = err;
+  }
+  else if (!(err instanceof Error) &#x26;&#x26; typeof(err) === &#x27;object&#x27;) {
+    // JSON processing
+    s_err.message = err;
+    s_err.stack = err;
+  }
+  else if (err instanceof Error) {
+    // Error object type processing
+    err.stack;
+    if (err.__error_callsites) {
+      var stackFrames = [];
+       err.__error_callsites.forEach(function(callSite) {
+        stackFrames.push({ file_name: callSite.getFileName(), line_number: callSite.getLineNumber()});
+      });
+      err.stackframes = stackFrames;
+      delete err.__error_callsites;
+    }
+    s_err = err;
+  }
+
+  return jsonize(s_err);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+if (listener === &#x27;unhandledRejection&#x27;) {
+  error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+}
+
+console.error(error);
+if (err)
+  var errObj = Notify.<span class="apidocCodeKeywordSpan">_interpretError</span>(err);
+
+Transport.send({
+  type : &#x27;process:exception&#x27;,
+  data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+}, true);
+
+if (!process.listeners(listener).filter(function (listener) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.notify.catchAll" id="apidoc.element.pmx.notify.catchAll">
+        function <span class="apidocSignatureSpan">pmx.notify.</span>catchAll
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">catchAll = function (opts) {
+
+  var callsites = require(&#x27;./utils/error-callsites&#x27;)
+
+  if (opts === undefined)
+    opts = { errors : true };
+
+  Options.configureModule({
+    error : opts.errors
+  });
+
+  if (process.env.exec_mode === &#x27;cluster_mode&#x27;)
+    return false;
+
+  function getUncaughtExceptionListener(listener) {
+    return function uncaughtListener(err) {
+      var error = err &#x26;&#x26; err.stack ? err.stack : err;
+
+      if (err &#x26;&#x26; err.length) {
+        err._length = err.length;
+        delete err.length;
+      }
+
+      if (listener === &#x27;unhandledRejection&#x27;) {
+        error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+      }
+
+      console.error(error);
+      if (err)
+        var errObj = Notify._interpretError(err);
+
+      Transport.send({
+        type : &#x27;process:exception&#x27;,
+        data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+      }, true);
+
+      if (!process.listeners(listener).filter(function (listener) {
+        return listener !== uncaughtListener;
+      }).length) {
+
+        if (listener == &#x27;uncaughtException&#x27;)
+          process.exit(1);
+      }
+    }
+  }
+
+  if (opts.errors === true &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length === 2) {
+    process.once(&#x27;uncaughtException&#x27;, getUncaughtExceptionListener(&#x27;uncaughtException&#x27;));
+    process.once(&#x27;unhandledRejection&#x27;, getUncaughtExceptionListener(&#x27;unhandledRejection&#x27;));
+  }
+  else if (opts.errors === false
+           &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length !== 2) {
+    process.removeAllListeners(&#x27;uncaughtException&#x27;);
+    process.removeAllListeners(&#x27;unhandledRejection&#x27;);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.notify.expressErrorHandler" id="apidoc.element.pmx.notify.expressErrorHandler">
+        function <span class="apidocSignatureSpan">pmx.notify.</span>expressErrorHandler
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">expressErrorHandler = function () {
+  var self = this;
+
+  Options.configureModule({
+    error : true
+  });
+
+  return function errorHandler(err, req, res, next) {
+    if (res.statusCode &#x3c; 400) res.statusCode = 500;
+
+    //debug(err.stack || err);
+
+    err.url = req.url;
+    err.component = req.url;
+    err.action = req.method;
+    err.params = req.body;
+    err.session = req.session;
+
+    Transport.send({
+      type  : &#x27;process:exception&#x27;,
+      data  : jsonize(err)
+    }, true);
+    return next(err);
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// All my routes
+app.get(&#x27;/&#x27; ...);
+app.post(...);
+// All my routes
+
+// Here I attach the middleware to get more verbosity on exception thrown
+app.use(pmx.<span class="apidocCodeKeywordSpan">expressErrorHandler</span>());
+```
+
+## Emit Events
+
+Emit events and get historical and statistics.
+This is available in the **Events** page of Keymetrics.
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.pmx.transaction" id="apidoc.module.pmx.transaction">module pmx.transaction</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.transaction.http" id="apidoc.element.pmx.transaction.http">
+        function <span class="apidocSignatureSpan">pmx.transaction.</span>http
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">http = function (opts) {
+  var Module = require(&#x27;module&#x27;);
+
+  debug(&#x27;Wrapping HTTP routes&#x27;);
+
+  if (Array.isArray(opts)) {
+    var routes = JSON.parse(JSON.stringify(opts));
+    opts = {
+      http          : true,
+      http_latency  : 200,
+      http_code     : 500,
+      ignore_routes : routes
+    };
+  }
+  opts = util._extend({
+    http          : true,
+    http_latency  : 200,
+    http_code     : 500,
+    ignore_routes : []
+  }, opts);
+
+  Proxy.wrap(Module, &#x27;_load&#x27;, function(load) {
+    if (load.__axm_original) {
+      debug(&#x27;HTTP routes have already been wrapped before&#x27;);
+
+      Options.configureModule({
+        latency : opts.http
+      });
+
+      if (opts.http === false) {
+        return function(file) { return load.__axm_original.apply(this, arguments) };
+      } else {
+        return function(file) {
+          if (file === &#x27;http&#x27; || file === &#x27;https&#x27;)
+            return SimpleHttpWrap(opts, load.__axm_original.apply(this, arguments));
+          else
+            return load.__axm_original.apply(this, arguments);
+        };
+      }
+    }
+
+    return function(file) {
+      if (opts.http &#x26;&#x26;
+          (file === &#x27;http&#x27; || file === &#x27;https&#x27;)) {
+        debug(&#x27;http module being required&#x27;);
+        Options.configureModule({
+          latency : true
+        });
+        return SimpleHttpWrap(opts, load.apply(this, arguments));
+      }
+      else
+        return load.apply(this, arguments);
+    };
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.pmx.transaction.tracing" id="apidoc.element.pmx.transaction.tracing">
+        function <span class="apidocSignatureSpan">pmx.transaction.</span>tracing
+        <span class="apidocSignatureSpan">(pmx, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">tracing = function (pmx, opts) {
+
+  if (Array.isArray(opts.ignore_routes) &#x26;&#x26; opts.ignore_routes.length &#x3e; 0) {
+    opts.ignoreFilter.url = opts.ignore_routes;
+  }
+
+  Transaction.tracer = require(&#x27;vxx&#x27;).start(opts);
+
+  Options.configureModule({
+    tracing_enabled : true
+  });
+
+  // broadcast to pm2 aggregator
+  Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function(data) {
+    Transport.send({
+      type: &#x27;axm:trace&#x27;,
+      data: data
+    })
+  })
+
+  // Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function (data) {
+  //   if (!opts.custom_probes) return;
+  //   // TODO: mine tracing data and require custom probes
+  //<span class="apidocCodeCommentSpan">   /*try {
+  //     var custom_probe = require(&#x27;./probes/&#x27; + modul)(pmx, Transaction.tracer)
+  //   } catch (err) { }*/
+</span>  // })
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
