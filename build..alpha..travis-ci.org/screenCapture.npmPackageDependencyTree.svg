@@ -1,24 +1,26 @@
-<svg height="334" width="720" xmlns="http://www.w3.org/2000/svg">
-<rect height="334" fill="#555" width="720"></rect>
+<svg height="366" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="366" fill="#555" width="720"></rect>
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
-<tspan x="10" y="26">2 megabytes</tspan>
-<tspan x="10" y="42">└─┬ pmx@1.1.0 </tspan>
-<tspan x="10" y="58">  ├─┬ debug@2.6.3 </tspan>
-<tspan x="10" y="74">  │ └── ms@0.7.2 </tspan>
-<tspan x="10" y="90">  ├── json-stringify-safe@5.0.1 </tspan>
-<tspan x="10" y="106">  └─┬ vxx@1.1.1 </tspan>
-<tspan x="10" y="122">    ├─┬ continuation-local-storage@3.2.0 </tspan>
-<tspan x="10" y="138">    │ ├── async-listener@0.6.5 </tspan>
-<tspan x="10" y="154">    │ └─┬ emitter-listener@1.0.1 </tspan>
-<tspan x="10" y="170">    │   └── shimmer@1.0.0 </tspan>
-<tspan x="10" y="186">    ├── extend@3.0.0 </tspan>
-<tspan x="10" y="202">    ├── is@3.2.1 </tspan>
-<tspan x="10" y="218">    ├── lodash.findindex@4.6.0 </tspan>
-<tspan x="10" y="234">    ├── lodash.isequal@4.5.0 </tspan>
-<tspan x="10" y="250">    ├── lodash.merge@4.6.0 </tspan>
-<tspan x="10" y="266">    ├── methods@1.1.2 </tspan>
-<tspan x="10" y="282">    ├── semver@5.3.0 </tspan>
-<tspan x="10" y="298">    ├── shimmer@1.1.0 </tspan>
-<tspan x="10" y="314">    └── uuid@3.0.1</tspan>
+<tspan x="10" y="26">2 megabytes installed</tspan>
+<tspan x="10" y="42"></tspan>
+<tspan x="10" y="58">node_modules</tspan>
+<tspan x="10" y="74">└─┬ pmx@1.1.0 </tspan>
+<tspan x="10" y="90">  ├─┬ debug@2.6.3 </tspan>
+<tspan x="10" y="106">  │ └── ms@0.7.2 </tspan>
+<tspan x="10" y="122">  ├── json-stringify-safe@5.0.1 </tspan>
+<tspan x="10" y="138">  └─┬ vxx@1.1.1 </tspan>
+<tspan x="10" y="154">    ├─┬ continuation-local-storage@3.2.0 </tspan>
+<tspan x="10" y="170">    │ ├── async-listener@0.6.5 </tspan>
+<tspan x="10" y="186">    │ └─┬ emitter-listener@1.0.1 </tspan>
+<tspan x="10" y="202">    │   └── shimmer@1.0.0 </tspan>
+<tspan x="10" y="218">    ├── extend@3.0.0 </tspan>
+<tspan x="10" y="234">    ├── is@3.2.1 </tspan>
+<tspan x="10" y="250">    ├── lodash.findindex@4.6.0 </tspan>
+<tspan x="10" y="266">    ├── lodash.isequal@4.5.0 </tspan>
+<tspan x="10" y="282">    ├── lodash.merge@4.6.0 </tspan>
+<tspan x="10" y="298">    ├── methods@1.1.2 </tspan>
+<tspan x="10" y="314">    ├── semver@5.3.0 </tspan>
+<tspan x="10" y="330">    ├── shimmer@1.1.0 </tspan>
+<tspan x="10" y="346">    └── uuid@3.0.1</tspan>
 </text>
 </svg>

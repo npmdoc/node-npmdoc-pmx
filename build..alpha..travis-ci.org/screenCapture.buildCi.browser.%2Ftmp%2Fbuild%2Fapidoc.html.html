@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/keymetrics/pmx#readme"
-
-    >pmx (v1.1.0)</a>
+    <a href="https://github.com/keymetrics/pmx#readme">pmx (v1.1.0)</a>
 </h1>
 <h4>PM2/Keymetrics advanced API</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.pmx">module pmx</a><ol>
 
@@ -1588,12 +1581,12 @@
     <li>description and source-code<pre class="apidocCodePre">_interpretError = function (err) {
   var s_err = {};
 
-  if (typeof(err) === &#x27;string&#x27;) {
+  if (typeof(err) === 'string') {
     // Simple string processing
     s_err.message = err;
     s_err.stack = err;
   }
-  else if (!(err instanceof Error) &#x26;&#x26; typeof(err) === &#x27;object&#x27;) {
+  else if (!(err instanceof Error) &amp;&amp; typeof(err) === 'object') {
     // JSON processing
     s_err.message = err;
     s_err.stack = err;
@@ -1616,8 +1609,8 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
-if (listener === &#x27;unhandledRejection&#x27;) {
-  error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+if (listener === 'unhandledRejection') {
+  error = 'You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n' + error;
 }
 
 console.error(error);
@@ -1625,8 +1618,8 @@ if (err)
   var errObj = Notify.<span class="apidocCodeKeywordSpan">_interpretError</span>(err);
 
 Transport.send({
-  type : &#x27;process:exception&#x27;,
-  data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+  type : 'process:exception',
+  data : errObj !== undefined ? errObj : {message: 'No error but ' + listener + ' was caught!' }
 }, true);
 
 if (!process.listeners(listener).filter(function (listener) {
@@ -1649,18 +1642,18 @@ if (!process.listeners(listener).filter(function (listener) {
   }
 
   if (!action_name)
-    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+    return console.error('[PMX] action.action_name is missing');
   if (!fn)
-    return console.error(&#x27;[PMX] emit.data is mission&#x27;);
+    return console.error('[PMX] emit.data is mission');
 
   if (!process.send) {
-    debug(&#x27;Process not running within PM2&#x27;);
+    debug('Process not running within PM2');
     return false;
   }
 
   // Notify the action
   Transport.send({
-    type : &#x27;axm:action&#x27;,
+    type : 'axm:action',
     data : {
       action_name : action_name,
       opts        : opts,
@@ -1675,7 +1668,7 @@ if (!process.listeners(listener).filter(function (listener) {
     }
 
     Transport.send({
-      type        : &#x27;axm:reply&#x27;,
+      type        : 'axm:reply',
       data        : {
         return      : data,
         action_name : action_name
@@ -1683,28 +1676,28 @@ if (!process.listeners(listener).filter(function (listener) {
     });
   }
 
-  process.on(&#x27;message&#x27;, function(data) {
+  process.on('message', function(data) {
     if (!data) return false;
 
     // In case 2 arguments has been set but no options has been transmitted
-    if (fn.length === 2 &#x26;&#x26; typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+    if (fn.length === 2 &amp;&amp; typeof(data) === 'string' &amp;&amp; data === action_name)
       return fn({}, reply);
 
     // In case 1 arguments has been set but options has been transmitted
-    if (fn.length === 1 &#x26;&#x26; typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+    if (fn.length === 1 &amp;&amp; typeof(data) === 'object' &amp;&amp; data.msg === action_name)
       return fn(reply);
 
 <span class="apidocCodeCommentSpan">    /**
      * Classical call
      */
-</span>    if (typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+</span>    if (typeof(data) === 'string' &amp;&amp; data === action_name)
       return fn(reply);
 
     /**
      * If data is an object == v2 protocol
      * Pass the opts as first argument
      */
-    if (typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+    if (typeof(data) === 'object' &amp;&amp; data.msg === action_name)
       return fn(data.opts, reply);
   });
 }</pre></li>
@@ -1715,9 +1708,9 @@ Simple action allows to trigger a function from Keymetrics. The function takes a
 Example:
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
-pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, function(reply) {
+pmx.<span class="apidocCodeKeywordSpan">action</span>('db:clean', function(reply) {
   clean.db(function() {
     /**
      * reply() must be called at the end of the action
@@ -1741,78 +1734,78 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
   var self = this;
   var cmp;
 
-  if (typeof(opts.mode) === &#x27;undefined&#x27;)
-    return console.error(&#x27;[Probe][Metric] Mode undefined!&#x27;);
-  if (typeof(opts.cmp) === &#x27;string&#x27;) {
+  if (typeof(opts.mode) === 'undefined')
+    return console.error('[Probe][Metric] Mode undefined!');
+  if (typeof(opts.cmp) === 'string') {
     switch(opts.cmp) {
-      case &#x27;&#x3e;&#x27;:
+      case '&gt;':
       cmp = function(a,b) {
-          return (a &#x3e; b);
+          return (a &gt; b);
         };
         break;
-      case &#x27;&#x3c;&#x27;:
+      case '&lt;':
        cmp = function(a, b) {
-          return (a &#x3c; b);
+          return (a &lt; b);
         };
         break;
-      case &#x27;=&#x27;:
+      case '=':
          cmp = function(a,b) {
           return (a === b);
         };
         break;
       default:
-        return console.error(&#x27;[Probe][Metric] Mode does not exist!&#x27;);
+        return console.error('[Probe][Metric] Mode does not exist!');
     }
     self.cmp_mode = opts.cmp;
     opts.cmp = null;
   }
   else {
     cmp = function(a,b) {
-      return (a &#x3e; b);
+      return (a &gt; b);
     };
-    self.cmp_mode = &#x27;&#x3e;&#x27;;
+    self.cmp_mode = '&gt;';
   }
   switch(opts.mode) {
-    case &#x27;threshold&#x27;:
-      if (typeof(opts.value) === &#x27;undefined&#x27;)
-        return console.error(&#x27;[Probe][Metric][threshold] Val undefined!&#x27;);
+    case 'threshold':
+      if (typeof(opts.value) === 'undefined')
+        return console.error('[Probe][Metric][threshold] Val undefined!');
       this.cmp = opts.cmp || function(a,b) {
         return cmp(parseFloat(a), b);
       };
       break;
-    case &#x27;threshold-avg&#x27;:
-      if (typeof(opts.value) === &#x27;undefined&#x27;)
-        return console.error(&#x27;[Probe][Metric][threshold-avg] Val undefined!&#x27;);
+    case 'threshold-avg':
+      if (typeof(opts.value) === 'undefined')
+        return console.error('[Probe][Metric][threshold-avg] Val undefined!');
       this.sample = new Sample(opts.interval || 180);
       this.cmp = function(value, threshold) {
         this.sample.update(parseFloat(value));
         if (this.start) {
-          if (typeof(opts.cmp) !== &#x27;undefined&#x27; &#x26;&#x26; opts.cmp !== null)
+          if (typeof(opts.cmp) !== 'undefined' &amp;&amp; opts.cmp !== null)
             return opts.cmp(this.sample.getMean(), threshold);
           return cmp(this.sample.getMean(), threshold);
         }
       };
       break;
-    case &#x27;smart&#x27;:
+    case 'smart':
       this.sample = new Sample(opts.interval || 300);
       this.small = new Sample(opts.sample || 30);
       this.cmp = function(value, threshold) {
         if (value !== null) {
           this.sample.update(parseFloat(value));
           this.small.update(parseFloat(value));
-        //debug(&#x27;Check&#x27;, value, Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (Math
+        //debug('Check', value, Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (Math
 .sqrt(2 * Math.PI) * this.sample.getStddev()));
 
           if (this.start)
           //return false
             return (Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (Math.sqrt(2 * Math
-.PI) * this.sample.getStddev()) &#x3c; 0.00000001)
+.PI) * this.sample.getStddev()) &lt; 0.00000001)
         }
         return false;
       };
       break;
     default:
-      return console.error(&#x27;[Probe][Metric] Mode does not exist!&#x27;);
+      return console.error('[Probe][Metric] Mode does not exist!');
   }
   this.mode = opts.mode;
   this.start = false;
@@ -1823,7 +1816,7 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
   this.reached = 0;
   this.nullCheck = 0;
   this.value =  opts.value || null;
-  this.msg = opts.msg || ((extra &#x26;&#x26; extra.name) ? (&#x27;Probe &#x27; + extra.name + &#x27; has reached value&#x27;) : &#x27;Alert value reached&#x27;);
+  this.msg = opts.msg || ((extra &amp;&amp; extra.name) ? ('Probe ' + extra.name + ' has reached value') : 'Alert value reached');
   this.func = opts.func || opts.action || null;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -1840,7 +1833,7 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
     <ul>
     <li>description and source-code<pre class="apidocCodePre">catchAll = function (opts) {
 
-  var callsites = require(&#x27;./utils/error-callsites&#x27;)
+  var callsites = require('./utils/error-callsites')
 
   if (opts === undefined)
     opts = { errors : true };
@@ -1849,20 +1842,20 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
     error : opts.errors
   });
 
-  if (process.env.exec_mode === &#x27;cluster_mode&#x27;)
+  if (process.env.exec_mode === 'cluster_mode')
     return false;
 
   function getUncaughtExceptionListener(listener) {
     return function uncaughtListener(err) {
-      var error = err &#x26;&#x26; err.stack ? err.stack : err;
+      var error = err &amp;&amp; err.stack ? err.stack : err;
 
-      if (err &#x26;&#x26; err.length) {
+      if (err &amp;&amp; err.length) {
         err._length = err.length;
         delete err.length;
       }
 
-      if (listener === &#x27;unhandledRejection&#x27;) {
-        error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+      if (listener === 'unhandledRejection') {
+        error = 'You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n' + error;
       }
 
       console.error(error);
@@ -1870,28 +1863,28 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
         var errObj = Notify._interpretError(err);
 
       Transport.send({
-        type : &#x27;process:exception&#x27;,
-        data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+        type : 'process:exception',
+        data : errObj !== undefined ? errObj : {message: 'No error but ' + listener + ' was caught!' }
       }, true);
 
       if (!process.listeners(listener).filter(function (listener) {
         return listener !== uncaughtListener;
       }).length) {
 
-        if (listener == &#x27;uncaughtException&#x27;)
+        if (listener == 'uncaughtException')
           process.exit(1);
       }
     }
   }
 
-  if (opts.errors === true &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length === 2) {
-    process.once(&#x27;uncaughtException&#x27;, getUncaughtExceptionListener(&#x27;uncaughtException&#x27;));
-    process.once(&#x27;unhandledRejection&#x27;, getUncaughtExceptionListener(&#x27;unhandledRejection&#x27;));
+  if (opts.errors === true &amp;&amp; util.inspect(process.listeners('uncaughtException')).length === 2) {
+    process.once('uncaughtException', getUncaughtExceptionListener('uncaughtException'));
+    process.once('unhandledRejection', getUncaughtExceptionListener('unhandledRejection'));
   }
   else if (opts.errors === false
-           &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length !== 2) {
-    process.removeAllListeners(&#x27;uncaughtException&#x27;);
-    process.removeAllListeners(&#x27;unhandledRejection&#x27;);
+           &amp;&amp; util.inspect(process.listeners('uncaughtException')).length !== 2) {
+    process.removeAllListeners('uncaughtException');
+    process.removeAllListeners('unhandledRejection');
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -1909,7 +1902,7 @@ if (opts.profiling)
 
 if (opts.custom_probes == true) {
   // Event loop monitoring
-  require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+  require('./probes/pacemaker.js')(PMX);
 ...</pre></li>
     </ul>
 
@@ -1924,10 +1917,10 @@ if (opts.custom_probes == true) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">catchPorts = function () {
   var ports_list = [];
-  var opened_ports = &#x27;N/A&#x27;;
+  var opened_ports = 'N/A';
 
   Probe.probe().metric({
-    name    : &#x27;Open ports&#x27;,
+    name    : 'Open ports',
     value   : function() { return opened_ports; }
   });
 
@@ -1936,13 +1929,13 @@ if (opts.custom_probes == true) {
   net_module.Server.prototype.listen = function() {
     var port = parseInt(arguments[0]);
 
-    if (!isNaN(port) &#x26;&#x26; ports_list.indexOf(port) === -1) {
+    if (!isNaN(port) &amp;&amp; ports_list.indexOf(port) === -1) {
       ports_list.push(port);
       opened_ports = ports_list.sort().join();
     }
 
-    this.once(&#x27;close&#x27;, function() {
-      if (ports_list.indexOf(port) &#x3e; -1) {
+    this.once('close', function() {
+      if (ports_list.indexOf(port) &gt; -1) {
         ports_list.splice(ports_list.indexOf(port), 1);
         opened_ports = ports_list.sort().join();
       }
@@ -1982,17 +1975,17 @@ if (opts.http)
     <li>description and source-code<pre class="apidocCodePre">catchTraffic = function () {
   var download = 0;
   var upload   = 0;
-  var up       = &#x27;0 B/sec&#x27;;
-  var down     = &#x27;0 B/sec&#x27;;
+  var up       = '0 B/sec';
+  var down     = '0 B/sec';
 
   var filter = function(bytes) {
     var to_fixed = 0;
 
     if (bytes === 0)
       ;
-    else if (bytes &#x3c; 1024)
+    else if (bytes &lt; 1024)
       to_fixed = 6;
-    else if (bytes &#x3c; (1024 * 1024))
+    else if (bytes &lt; (1024 * 1024))
       to_fixed = 3;
     else
       to_fixed = 2;
@@ -2001,20 +1994,20 @@ if (opts.http)
 
     var cut_zeros = 0;
 
-    for (var i = (bytes.length - 1); i &#x3e; 0; --i) {
-      if (bytes[i] === &#x27;.&#x27;) {
+    for (var i = (bytes.length - 1); i &gt; 0; --i) {
+      if (bytes[i] === '.') {
         ++cut_zeros;
         break;
       }
-      if (bytes[i] !== &#x27;0&#x27;)
+      if (bytes[i] !== '0')
         break;
       ++cut_zeros;
     }
 
-    if (cut_zeros &#x3e; 0)
+    if (cut_zeros &gt; 0)
       bytes = bytes.slice(0, -(cut_zeros));
 
-    return (bytes + &#x27; MB/s&#x27;);
+    return (bytes + ' MB/s');
   };
 
   var interval = setInterval(function() {
@@ -2027,14 +2020,14 @@ if (opts.http)
   interval.unref();
 
   Probe.probe().metric({
-    name     : &#x27;Network Download&#x27;,
-    agg_type : &#x27;sum&#x27;,
+    name     : 'Network Download',
+    agg_type : 'sum',
     value    : function() { return down; }
   });
 
   Probe.probe().metric({
-    name     : &#x27;Network Upload&#x27;,
-    agg_type : &#x27;sum&#x27;,
+    name     : 'Network Upload',
+    agg_type : 'sum',
     value    : function() { return up; }
   });
 
@@ -2053,7 +2046,7 @@ if (opts.http)
     if (!this.monitored) {
       this.monitored = true;
 
-      this.on(&#x27;data&#x27;, function(data) {
+      this.on('data', function(data) {
         if (data.length)
           download += data.length;
       });
@@ -2092,14 +2085,14 @@ PMX.catchAll(opts);
     <ul>
     <li>description and source-code<pre class="apidocCodePre">configureModule = function (opts) {
   Transport.send({
-    type : &#x27;axm:option:configuration&#x27;,
+    type : 'axm:option:configuration',
     data : opts
   }, false);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 } catch(e) {
   //console.error(e);
-  //console.error(&#x27;Error while parsing configuration in environment (%s)&#x27;, conf.module_name);
+  //console.error('Error while parsing configuration in environment (%s)', conf.module_name);
 }
 
 if (do_not_tell_pm2 == true) return conf;
@@ -2109,7 +2102,7 @@ return conf;
 };
 
 Options.getPID = function(file) {
-if (typeof(file) === &#x27;number&#x27;)
+if (typeof(file) === 'number')
   return file;
 return parseInt(fs.readFileSync(file).toString());
 ...</pre></li>
@@ -2130,8 +2123,8 @@ return parseInt(fs.readFileSync(file).toString());
 
   opts = opts || {};
 
-  if (typeof(opts.refresh) !== &#x27;function&#x27;)
-    throw new Error(&#x27;Refresh not defined or not a function&#x27;);
+  if (typeof(opts.refresh) !== 'function')
+    throw new Error('Refresh not defined or not a function');
 
   this._refresh = opts.refresh;
 
@@ -2142,7 +2135,7 @@ return parseInt(fs.readFileSync(file).toString());
   this._dev   = opts.dev || 0.2;
   this._callback = opts.callback || null;
   this._histogram = new Histogram();
-  this._calcDev = opts.calcDev || &#x27;ema&#x27;;
+  this._calcDev = opts.calcDev || 'ema';
 
 <span class="apidocCodeCommentSpan">  /*
    * Select function to compute deviation
@@ -2157,17 +2150,17 @@ return parseInt(fs.readFileSync(file).toString());
    * Display some probe if we need to debug
    */
   if (opts.debug === true) {
-    if (opts.probes.indexOf(&#x27;val&#x27;) != -1) {
+    if (opts.probes.indexOf('val') != -1) {
       this._metric2 = new probe.metric({
-        name  : &#x27;Value&#x27;,
+        name  : 'Value',
         value : function() {
           return self._refresh();
         }
       });
     }
-    if (opts.probes.indexOf(&#x27;ema&#x27;) != -1) {
+    if (opts.probes.indexOf('ema') != -1) {
       this._metric3 = new probe.metric({
-        name  : &#x27;EMA&#x27;,
+        name  : 'EMA',
         value : function() {
           return self._histogram.getEma();
         }
@@ -2199,9 +2192,9 @@ return parseInt(fs.readFileSync(file).toString());
 
   (function look_for_profiler(require_paths) {
     if (!require_paths[0])
-      return cb(new Error(&#x27;Module not found&#x27;));
+      return cb(new Error('Module not found'));
 
-    var profiler_path = path.join(require_paths[0], &#x27;v8-profiler&#x27;);
+    var profiler_path = path.join(require_paths[0], 'v8-profiler');
 
     fs.exists(profiler_path, function(exist) {
       if (exist)
@@ -2241,13 +2234,13 @@ Profiling.v8Profiling = function(pmx) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">emit = function (name, data) {
   if (!name)
-    return console.error(&#x27;[AXM] emit.name is missing&#x27;);
+    return console.error('[AXM] emit.name is missing');
   if (!data)
-    return console.error(&#x27;[AXM] emit.data is missing&#x27;);
+    return console.error('[AXM] emit.data is missing');
 
   var inflight_obj = {};
 
-  if (typeof(data) == &#x27;object&#x27;)
+  if (typeof(data) == 'object')
     inflight_obj = JSON.parse(stringify(data));
   else {
     inflight_obj.data = data;
@@ -2256,7 +2249,7 @@ Profiling.v8Profiling = function(pmx) {
   inflight_obj.__name = name;
 
   Transport.send({
-    type : &#x27;human:event&#x27;,
+    type : 'human:event',
     data : inflight_obj
   }, true);
   return false;
@@ -2267,11 +2260,11 @@ Emit events and get historical and statistics.
 This is available in the **Events** page of Keymetrics.
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
-pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
-  user : &#x27;Alex registered&#x27;,
-  email : &#x27;thorustor@gmail.com&#x27;
+pmx.<span class="apidocCodeKeywordSpan">emit</span>('user:register', {
+  user : 'Alex registered',
+  email : 'thorustor@gmail.com'
 });
 ```
 
@@ -2290,7 +2283,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
   if (!custom_namespace)
-    custom_namespace = &#x27;axm&#x27;;
+    custom_namespace = 'axm';
 
   if (!global[custom_namespace])
     global[custom_namespace] = {};
@@ -2300,7 +2293,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
 
   this.interval = setInterval(function() {
     Transport.send({
-      type : &#x27;axm:monitor&#x27;,
+      type : 'axm:monitor',
       data : cookData(global[custom_namespace])
     });
   }, 990);
@@ -2323,7 +2316,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
   if (!custom_namespace)
-    custom_namespace = &#x27;axm&#x27;;
+    custom_namespace = 'axm';
 
   if (!global[custom_namespace])
     global[custom_namespace] = {};
@@ -2333,7 +2326,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
 
   this.interval = setInterval(function() {
     Transport.send({
-      type : &#x27;axm:monitor&#x27;,
+      type : 'axm:monitor',
       data : cookData(global[custom_namespace])
     });
   }, 990);
@@ -2358,11 +2351,11 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
   try {
     var profiler = require(profiler_path);
   } catch(e) {
-    debug(&#x27;v8-profiler module not installed&#x27;, e);
+    debug('v8-profiler module not installed', e);
     return false;
   }
 
-  debug(&#x27;v8-profiler sucessfully enabled&#x27;);
+  debug('v8-profiler sucessfully enabled');
 
 <span class="apidocCodeCommentSpan">  /**
    * Tell Keymetrics that profiling is possible
@@ -2375,11 +2368,11 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
   /**
    * Heap snapshot
    */
-  pmx.action(&#x27;km:heapdump&#x27;, function(reply) {
-    var dump_file = path.join(os.tmpDir(), Date.now() + &#x27;.heapsnapshot&#x27;);
+  pmx.action('km:heapdump', function(reply) {
+    var dump_file = path.join(os.tmpDir(), Date.now() + '.heapsnapshot');
 
-    var snapshot = profiler.takeSnapshot(&#x27;km-heap-snapshot&#x27;);
-    var buffer    = &#x27;&#x27;;
+    var snapshot = profiler.takeSnapshot('km-heap-snapshot');
+    var buffer    = '';
 
     snapshot.serialize(
       function iterator(data, length) {
@@ -2388,7 +2381,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
         snapshot.delete();
 
         fs.writeFile(dump_file, buffer, function (err) {
-          debug(&#x27;Heap dump file flushed (e=&#x27;, err);
+          debug('Heap dump file flushed (e=', err);
 
           if (err) {
             return reply({
@@ -2409,15 +2402,15 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
   /**
    * CPU profiling snapshot
    */
-  var ns_cpu_profiling        = &#x27;km-cpu-profiling&#x27;;
-  var cpu_dump_file = path.join(os.tmpDir(), Date.now() + &#x27;.cpuprofile&#x27;);
+  var ns_cpu_profiling        = 'km-cpu-profiling';
+  var cpu_dump_file = path.join(os.tmpDir(), Date.now() + '.cpuprofile');
 
-  pmx.action(&#x27;km:cpu:profiling:start&#x27;, function(reply) {
+  pmx.action('km:cpu:profiling:start', function(reply) {
     profiler.startProfiling(ns_cpu_profiling);
     return reply({ success : true });
   });
 
-  pmx.action(&#x27;km:cpu:profiling:stop&#x27;, function(reply) {
+  pmx.action('km:cpu:profiling:stop', function(reply) {
     var cpu = profiler.stopProfiling(ns_cpu_profiling);
 
     fs.writeFile(cpu_dump_file, JSON.stringify(cpu), function(err) {
@@ -2467,7 +2460,7 @@ Profiling.v8Profiling = function(pmx) {
   });
 
   return function errorHandler(err, req, res, next) {
-    if (res.statusCode &#x3c; 400) res.statusCode = 500;
+    if (res.statusCode &lt; 400) res.statusCode = 500;
 
     //debug(err.stack || err);
 
@@ -2478,7 +2471,7 @@ Profiling.v8Profiling = function(pmx) {
     err.session = req.session;
 
     Transport.send({
-      type  : &#x27;process:exception&#x27;,
+      type  : 'process:exception',
       data  : jsonize(err)
     }, true);
     return next(err);
@@ -2487,7 +2480,7 @@ Profiling.v8Profiling = function(pmx) {
     <li>example usage<pre class="apidocCodePre">...
 
 // All my routes
-app.get(&#x27;/&#x27; ...);
+app.get('/' ...);
 app.post(...);
 // All my routes
 
@@ -2522,7 +2515,7 @@ This is available in the **Events** page of Keymetrics.
 Probe.probe = function() {
 var self = this;
 // Get module configuration to enable alerts
-if (this.getConf &#x26;&#x26; this.<span class="apidocCodeKeywordSpan">getConf</span>())
+if (this.getConf &amp;&amp; this.<span class="apidocCodeKeywordSpan">getConf</span>())
   Probe._alert_activated = this.getConf().alert_enabled || true;
 else
   Probe._alert_activated = false;
@@ -2557,7 +2550,7 @@ if (Probe._started == false) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getPID = function (file) {
-  if (typeof(file) === &#x27;number&#x27;)
+  if (typeof(file) === 'number')
     return file;
   return parseInt(fs.readFileSync(file).toString());
 }</pre></li>
@@ -2574,9 +2567,9 @@ if (Probe._started == false) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">http = function (opts) {
-  var Module = require(&#x27;module&#x27;);
+  var Module = require('module');
 
-  debug(&#x27;Wrapping HTTP routes&#x27;);
+  debug('Wrapping HTTP routes');
 
   if (Array.isArray(opts)) {
     var routes = JSON.parse(JSON.stringify(opts));
@@ -2594,9 +2587,9 @@ if (Probe._started == false) {
     ignore_routes : []
   }, opts);
 
-  Proxy.wrap(Module, &#x27;_load&#x27;, function(load) {
+  Proxy.wrap(Module, '_load', function(load) {
     if (load.__axm_original) {
-      debug(&#x27;HTTP routes have already been wrapped before&#x27;);
+      debug('HTTP routes have already been wrapped before');
 
       Options.configureModule({
         latency : opts.http
@@ -2606,7 +2599,7 @@ if (Probe._started == false) {
         return function(file) { return load.__axm_original.apply(this, arguments) };
       } else {
         return function(file) {
-          if (file === &#x27;http&#x27; || file === &#x27;https&#x27;)
+          if (file === 'http' || file === 'https')
             return SimpleHttpWrap(opts, load.__axm_original.apply(this, arguments));
           else
             return load.__axm_original.apply(this, arguments);
@@ -2615,9 +2608,9 @@ if (Probe._started == false) {
     }
 
     return function(file) {
-      if (opts.http &#x26;&#x26;
-          (file === &#x27;http&#x27; || file === &#x27;https&#x27;)) {
-        debug(&#x27;http module being required&#x27;);
+      if (opts.http &amp;&amp;
+          (file === 'http' || file === 'https')) {
+        debug('http module being required');
         Options.configureModule({
           latency : true
         });
@@ -2669,7 +2662,7 @@ if (opts.custom_probes == true) {
     profiling     : true,
     errors        : true,
     // By default if you add alert subfield in custom
-    // it&#x27;s going to be enabled
+    // it's going to be enabled
     alert_enabled : true,
     custom_probes : true,
     network       : false,
@@ -2678,10 +2671,10 @@ if (opts.custom_probes == true) {
     // VXX options
     // ignoreFilter.url is aliased to ignore_routes
     ignoreFilter: {
-      &#x27;url&#x27;: [],
-      &#x27;method&#x27;: [&#x27;OPTIONS&#x27;]
+      'url': [],
+      'method': ['OPTIONS']
     },
-    // &#x27;express&#x27;, &#x27;hapi&#x27;, &#x27;http&#x27;, &#x27;restify&#x27;
+    // 'express', 'hapi', 'http', 'restify'
     excludedHooks: []
   }, opts);
 
@@ -2705,11 +2698,11 @@ if (opts.custom_probes == true) {
 
   if (opts.custom_probes == true) {
     // Event loop monitoring
-    require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+    require('./probes/pacemaker.js')(PMX);
   }
 
   if (opts.default_actions == true) {
-    //require(&#x27;./actions/default.js&#x27;)(PMX);
+    //require('./actions/default.js')(PMX);
   }
 
   opts.isModule = false;
@@ -2753,9 +2746,9 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
   }, opts);
 
   opts.widget = util._extend({
-    type : &#x27;generic&#x27;,
-    logo : &#x27;https://app.keymetrics.io/img/logo/keymetrics-300.png&#x27;,
-    theme            : [&#x27;#111111&#x27;, &#x27;#1B2228&#x27;, &#x27;#807C7C&#x27;, &#x27;#807C7C&#x27;]
+    type : 'generic',
+    logo : 'https://app.keymetrics.io/img/logo/keymetrics-300.png',
+    theme            : ['#111111', '#1B2228', '#807C7C', '#807C7C']
   }, opts.widget);
 
   opts.isModule = true;
@@ -2766,7 +2759,7 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
 
   this._pmx_conf = opts;
 
-  if (cb &#x26;&#x26; typeof(cb) == &#x27;function&#x27;)
+  if (cb &amp;&amp; typeof(cb) == 'function')
     return cb(null, opts);
 
   return opts;
@@ -2790,7 +2783,7 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
   //debug(ret_err);
 
   Transport.send({
-    type : &#x27;process:exception&#x27;,
+    type : 'process:exception',
     data : ret_err
   }, true);
 
@@ -2802,13 +2795,13 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
 If you need to alert about any critical errors you can do it programmatically:
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
 pmx.<span class="apidocCodeKeywordSpan">notify</span>({ success : false });
 
-pmx.notify(&#x27;This is an error&#x27;);
+pmx.notify('This is an error');
 
-pmx.notify(new Error(&#x27;This is an error&#x27;));
+pmx.notify(new Error('This is an error'));
 ```
 
 ### Add Verbosity to an Alert: Express Error handler
@@ -2827,7 +2820,7 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
     <li>description and source-code<pre class="apidocCodePre">probe = function () {
   var self = this;
   // Get module configuration to enable alerts
-  if (this.getConf &#x26;&#x26; this.getConf())
+  if (this.getConf &amp;&amp; this.getConf())
     Probe._alert_activated = this.getConf().alert_enabled || true;
   else
     Probe._alert_activated = false;
@@ -2837,7 +2830,7 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
 
     var p_interval = setInterval(function() {
       Transport.send({
-        type : &#x27;axm:monitor&#x27;,
+        type : 'axm:monitor',
         data : cookData(Probe._var)
       });
       checkIssues(Probe._var);
@@ -2849,23 +2842,23 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
   return {
 <span class="apidocCodeCommentSpan">    /**
      * This reflect data to keymetrics
-     * pmx.transpose(&#x27;prop name&#x27;, fn)
+     * pmx.transpose('prop name', fn)
      *
      * or
      *
      * pmx.transpose({
-     *   name : &#x27;variable name&#x27;,
+     *   name : 'variable name',
      *   data : function() { return value }
      * });
      */
 </span>    transpose : function(variable_name, reporter) {
-      if (typeof variable_name === &#x27;object&#x27;) {
+      if (typeof variable_name === 'object') {
         reporter = variable_name.data;
         variable_name = variable_name.name;
       }
 
-      if (typeof reporter !== &#x27;function&#x27;) {
-        return console.error(&#x27;[PMX] reporter is not a function&#x27;);
+      if (typeof reporter !== 'function') {
+        return console.error('[PMX] reporter is not a function');
       }
 
       Probe._var[variable_name] = {
@@ -2876,9 +2869,9 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Metric] Name not defined&#x27;);
+        return console.error('[Probe][Metric] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       Probe._var[opts.name] = {
         value   : opts.value || 0,
@@ -2895,7 +2888,7 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
         val : function() {
           var value = Probe._var[opts.name].value;
 
-          if (typeof(value) == &#x27;function&#x27;)
+          if (typeof(value) == 'function')
             value = value();
 
           return value;
@@ -2907,20 +2900,20 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
     },
     histogram : function(opts) {
       if (!opts.name)
-        return console.error(&#x27;[Probe][Histogram] Name not defined&#x27;);
-      opts.measurement = opts.measurement || &#x27;mean&#x27;;
-      opts.unit = opts.unit || &#x27;&#x27;;
+        return console.error('[Probe][Histogram] Name not defined');
+      opts.measurement = opts.measurement || 'mean';
+      opts.unit = opts.unit || '';
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (Probe.AVAILABLE_MEASUREMENTS.indexOf(opts.measurement) == -1)
-        return console.error(&#x27;[Probe][Histogram] Measure type %s does not exists&#x27;, opts.measurement);
+        return console.error('[Probe][Histogram] Measure type %s does not exists', opts.measurement);
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       var histogram = new Histogram(opts);
 
       Probe._var[opts.name] = {
-        value: function() { return (Math.round(histogram.val() * 100) / 100) + &#x27;&#x27; + opts.unit },
+        value: function() { return (Math.round(histogram.val() * 100) / 100) + '' + opts.unit },
         agg_type: agg_type
       };
 
@@ -2936,16 +2929,16 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Meter] Name not defined&#x27;);
+        return console.error('[Probe][Meter] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
-      opts.unit = opts.unit || &#x27;&#x27;;
+      opts.unit = opts.unit || '';
 
       var meter = new Meter(opts);
 
       Probe._var[opts.name] = {
-        value: function() { return meter.val() + &#x27;&#x27; + opts.unit },
+        value: function() { return meter.val() + '' + opts.unit },
         agg_type: agg_type
       };
 
@@ -2961,9 +2954,9 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Counter] Name not defined&#x27;);
+        return console.error('[Probe][Counter] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       var counter = new Counter();
 
@@ -2982,7 +2975,7 @@ var probe = pmx.<span class="apidocCodeKeywordSpan">probe</span>();
 // Here the value function will be called each second to get the value
 // returned by Object.keys(users).length
 var metric = probe.metric({
-name    : &#x27;Realtime user&#x27;,
+name    : 'Realtime user',
 value   : function() {
   return Object.keys(users).length;
 ...</pre></li>
@@ -2998,11 +2991,11 @@ value   : function() {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">resolvePidPaths = function (filepaths) {
-  if (typeof(filepaths) === &#x27;number&#x27;)
+  if (typeof(filepaths) === 'number')
     return filepaths;
 
   function detect(filepaths) {
-    var content = &#x27;&#x27;;
+    var content = '';
 
     filepaths.some(function(filepath) {
       try {
@@ -3055,25 +3048,25 @@ value   : function() {
     <li>description and source-code<pre class="apidocCodePre">scopedAction = function (action_name, fn) {
 
   if (!action_name)
-    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+    return console.error('[PMX] action.action_name is missing');
   if (!fn)
-    return console.error(&#x27;[PMX] callback is missing&#x27;);
+    return console.error('[PMX] callback is missing');
 
   if (!process.send) {
-    debug(&#x27;Process not running within PM2&#x27;);
+    debug('Process not running within PM2');
     return false;
   }
 
   // Notify the action
   Transport.send({
-    type : &#x27;axm:action&#x27;,
+    type : 'axm:action',
     data : {
       action_name : action_name,
-      action_type : &#x27;scoped&#x27;
+      action_type : 'scoped'
     }
   });
 
-  process.on(&#x27;message&#x27;, function(data) {
+  process.on('message', function(data) {
     if (!data
         || data.uuid === undefined
         || data.action_name === undefined)
@@ -3083,7 +3076,7 @@ value   : function() {
       var res = {
         send : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:stream&#x27;,
+            type        : 'axm:scoped_action:stream',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -3093,7 +3086,7 @@ value   : function() {
         },
         error : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:error&#x27;,
+            type        : 'axm:scoped_action:error',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -3103,7 +3096,7 @@ value   : function() {
         },
         end : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:end&#x27;,
+            type        : 'axm:scoped_action:end',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -3115,7 +3108,7 @@ value   : function() {
 
       var d = domain.create();
 
-      d.on(&#x27;error&#x27;, function(err) {
+      d.on('error', function(err) {
         res.error(err.message || err.stack || err);
         setTimeout(function() {
           process.exit(1);
@@ -3137,11 +3130,11 @@ end the scoped action.
 Example:
 
 ```javascript
-pmx.<span class="apidocCodeKeywordSpan">scopedAction</span>(&#x27;long running lsof&#x27;, function(data, res) {
-var child = spawn(&#x27;lsof&#x27;, []);
+pmx.<span class="apidocCodeKeywordSpan">scopedAction</span>('long running lsof', function(data, res) {
+var child = spawn('lsof', []);
 
-child.stdout.on(&#x27;data&#x27;, function(chunk) {
-  chunk.toString().split(&#x27;\n&#x27;).forEach(function(line) {
+child.stdout.on('data', function(chunk) {
+  chunk.toString().split('\n').forEach(function(line) {
     res.send(line); // This send log to Keymetrics to be saved (for tracking)
   });
 });
@@ -3189,29 +3182,29 @@ child.stdout.on(&#x27;data&#x27;, function(chunk) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">tracing = function (pmx, opts) {
 
-  if (Array.isArray(opts.ignore_routes) &#x26;&#x26; opts.ignore_routes.length &#x3e; 0) {
+  if (Array.isArray(opts.ignore_routes) &amp;&amp; opts.ignore_routes.length &gt; 0) {
     opts.ignoreFilter.url = opts.ignore_routes;
   }
 
-  Transaction.tracer = require(&#x27;vxx&#x27;).start(opts);
+  Transaction.tracer = require('vxx').start(opts);
 
   Options.configureModule({
     tracing_enabled : true
   });
 
   // broadcast to pm2 aggregator
-  Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function(data) {
+  Transaction.tracer.getBus().on('transaction', function(data) {
     Transport.send({
-      type: &#x27;axm:trace&#x27;,
+      type: 'axm:trace',
       data: data
     })
   })
 
-  // Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function (data) {
+  // Transaction.tracer.getBus().on('transaction', function (data) {
   //   if (!opts.custom_probes) return;
   //   // TODO: mine tracing data and require custom probes
   //<span class="apidocCodeCommentSpan">   /*try {
-  //     var custom_probe = require(&#x27;./probes/&#x27; + modul)(pmx, Transaction.tracer)
+  //     var custom_probe = require('./probes/' + modul)(pmx, Transaction.tracer)
   //   } catch (err) { }*/
 </span>  // })
 }</pre></li>
@@ -3262,7 +3255,7 @@ if (opts.profiling)
 
 if (opts.custom_probes == true) {
   // Event loop monitoring
-  require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+  require('./probes/pacemaker.js')(PMX);
 }
 
 if (opts.default_actions == true) {
@@ -3356,12 +3349,12 @@ if (opts.default_actions == true) {
   var bubbleElement = this._elements[bubbleIndex];
   var bubbleScore   = this._score(bubbleElement);
 
-  while (bubbleIndex &#x3e; 0) {
+  while (bubbleIndex &gt; 0) {
     var parentIndex   = this._parentIndex(bubbleIndex);
     var parentElement = this._elements[parentIndex];
     var parentScore   = this._score(parentElement);
 
-    if (bubbleScore &#x3c;= parentScore) break;
+    if (bubbleScore &lt;= parentScore) break;
 
     this._elements[parentIndex] = bubbleElement;
     this._elements[bubbleIndex]  = parentElement;
@@ -3372,7 +3365,7 @@ if (opts.default_actions == true) {
 }
 
 BinaryHeap.prototype.add = function(/* elements */) {
-  for (var i = 0; i &#x3c; arguments.length; i++) {
+  for (var i = 0; i &lt; arguments.length; i++) {
     var element = arguments[i];
 
     this._elements.push(element);
@@ -3412,10 +3405,10 @@ BinaryHeap.prototype.first = function() {
     var swapElement  = null;
     var childIndexes = this.<span class="apidocCodeKeywordSpan">_childIndexes</span>(sinkIndex);
 
-    for (var i = 0; i &#x3c; childIndexes.length; i++) {
+    for (var i = 0; i &lt; childIndexes.length; i++) {
 var childIndex   = childIndexes[i];
 
-if (childIndex &#x3e;= length) break;
+if (childIndex &gt;= length) break;
 
 var childElement = this._elements[childIndex];
 ...</pre></li>
@@ -3440,12 +3433,12 @@ BinaryHeap.prototype._bubble = function(bubbleIndex) {
   var bubbleElement = this._elements[bubbleIndex];
   var bubbleScore   = this._score(bubbleElement);
 
-  while (bubbleIndex &#x3e; 0) {
+  while (bubbleIndex &gt; 0) {
 var parentIndex   = this.<span class="apidocCodeKeywordSpan">_parentIndex</span>(bubbleIndex);
 var parentElement = this._elements[parentIndex];
 var parentScore   = this._score(parentElement);
 
-if (bubbleScore &#x3c;= parentScore) break;
+if (bubbleScore &lt;= parentScore) break;
 
 this._elements[parentIndex] = bubbleElement;
 this._elements[bubbleIndex]  = parentElement;
@@ -3474,12 +3467,12 @@ BinaryHeap.prototype._bubble = function(bubbleIndex) {
   var bubbleElement = this._elements[bubbleIndex];
   var bubbleScore   = this.<span class="apidocCodeKeywordSpan">_score</span>(bubbleElement);
 
-  while (bubbleIndex &#x3e; 0) {
+  while (bubbleIndex &gt; 0) {
 var parentIndex   = this._parentIndex(bubbleIndex);
 var parentElement = this._elements[parentIndex];
 var parentScore   = this._score(parentElement);
 
-if (bubbleScore &#x3c;= parentScore) break;
+if (bubbleScore &lt;= parentScore) break;
 ...</pre></li>
     </ul>
 
@@ -3503,16 +3496,16 @@ if (bubbleScore &#x3c;= parentScore) break;
     var swapElement  = null;
     var childIndexes = this._childIndexes(sinkIndex);
 
-    for (var i = 0; i &#x3c; childIndexes.length; i++) {
+    for (var i = 0; i &lt; childIndexes.length; i++) {
       var childIndex   = childIndexes[i];
 
-      if (childIndex &#x3e;= length) break;
+      if (childIndex &gt;= length) break;
 
       var childElement = this._elements[childIndex];
       var childScore   = this._score(childElement);
 
-      if (childScore &#x3e; sinkScore) {
-        if (swapScore === null || swapScore &#x3c; childScore) {
+      if (childScore &gt; sinkScore) {
+        if (swapScore === null || swapScore &lt; childScore) {
           swapIndex   = childIndex;
           swapScore   = childScore;
           swapElement = childElement;
@@ -3533,7 +3526,7 @@ BinaryHeap.prototype.removeFirst = function() {
 var root = this._elements[0];
 var last = this._elements.pop();
 
-if (this._elements.length &#x3e; 0) {
+if (this._elements.length &gt; 0) {
   this._elements[0] = last;
   this.<span class="apidocCodeKeywordSpan">_sink</span>(0);
 }
@@ -3556,7 +3549,7 @@ return new BinaryHeap({
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">add = function () {
-  for (var i = 0; i &#x3c; arguments.length; i++) {
+  for (var i = 0; i &lt; arguments.length; i++) {
     var element = arguments[i];
 
     this._elements.push(element);
@@ -3570,14 +3563,14 @@ return new BinaryHeap({
     value: value
   };
 
-  if (newSize &#x3c;= this._size) {
+  if (newSize &lt;= this._size) {
     this._elements.<span class="apidocCodeKeywordSpan">add</span>(element);
-  } else if (element.priority &#x3e; this._elements.first().priority) {
+  } else if (element.priority &gt; this._elements.first().priority) {
     this._elements.removeFirst();
     this._elements.add(element);
   }
 
-  if (now &#x3e;= this._nextRescale) this._rescale(now);
+  if (now &gt;= this._nextRescale) this._rescale(now);
 };
 ...</pre></li>
     </ul>
@@ -3634,14 +3627,14 @@ while (true) {
     value: value
   };
 
-  if (newSize &#x3c;= this._size) {
+  if (newSize &lt;= this._size) {
     this._elements.add(element);
-  } else if (element.priority &#x3e; this._elements.<span class="apidocCodeKeywordSpan">first</span>().priority) {
+  } else if (element.priority &gt; this._elements.<span class="apidocCodeKeywordSpan">first</span>().priority) {
     this._elements.removeFirst();
     this._elements.add(element);
   }
 
-  if (now &#x3e;= this._nextRescale) this._rescale(now);
+  if (now &gt;= this._nextRescale) this._rescale(now);
 };
 ...</pre></li>
     </ul>
@@ -3659,7 +3652,7 @@ while (true) {
   var root = this._elements[0];
   var last = this._elements.pop();
 
-  if (this._elements.length &#x3e; 0) {
+  if (this._elements.length &gt; 0) {
     this._elements[0] = last;
     this._sink(0);
   }
@@ -3712,7 +3705,7 @@ var element = {
   value: value
 };
 
-if (newSize &#x3c;= this._size) {
+if (newSize &lt;= this._size) {
 ...</pre></li>
     </ul>
 
@@ -3772,7 +3765,7 @@ var clone = this.clone();
     <li>example usage<pre class="apidocCodePre">...
   }
 
-  if (now &#x3e;= this._nextRescale) this._rescale(now);
+  if (now &gt;= this._nextRescale) this._rescale(now);
 };
 
 ExponentiallyDecayingSample.prototype.toSortedArray = function() {
@@ -3857,9 +3850,9 @@ var element = {
   value: value
 };
 
-if (newSize &#x3c;= this._size) {
+if (newSize &lt;= this._size) {
   this._elements.add(element);
-} else if (element.priority &#x3e; this._elements.first().priority) {
+} else if (element.priority &gt; this._elements.first().priority) {
   this._elements.removeFirst();
 ...</pre></li>
     </ul>
@@ -3921,14 +3914,14 @@ ExponentiallyDecayingSample.prototype._rescale = function(now) {
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-if (newSize &#x3c;= this._size) {
+if (newSize &lt;= this._size) {
   this._elements.add(element);
-} else if (element.priority &#x3e; this._elements.first().priority) {
+} else if (element.priority &gt; this._elements.first().priority) {
   this._elements.removeFirst();
   this._elements.add(element);
 }
 
-if (now &#x3e;= this._nextRescale) this.<span class="apidocCodeKeywordSpan">_rescale</span>(now);
+if (now &gt;= this._nextRescale) this.<span class="apidocCodeKeywordSpan">_rescale</span>(now);
 };
 
 ExponentiallyDecayingSample.prototype.toSortedArray = function() {
@@ -4047,7 +4040,7 @@ var clone = this.clone();
     <li>example usage<pre class="apidocCodePre">...
   }
 
-  if (now &#x3e;= this._nextRescale) this._rescale(now);
+  if (now &gt;= this._nextRescale) this._rescale(now);
 };
 
 ExponentiallyDecayingSample.prototype.toSortedArray = function() {
@@ -4088,17 +4081,17 @@ ExponentiallyDecayingSample.prototype.toArray = function() {
     value: value
   };
 
-  if (newSize &#x3c;= this._size) {
+  if (newSize &lt;= this._size) {
     this._elements.add(element);
-  } else if (element.priority &#x3e; this._elements.first().priority) {
+  } else if (element.priority &gt; this._elements.first().priority) {
     this._elements.removeFirst();
     this._elements.add(element);
   }
 
-  if (now &#x3e;= this._nextRescale) this._rescale(now);
+  if (now &gt;= this._nextRescale) this._rescale(now);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-  measurement : &#x27;mean&#x27;
+  measurement : 'mean'
 });
 
 var latency = 0;
@@ -4185,7 +4178,7 @@ setInterval(function() {
  */
 function checkIssues(data) {
 Object.keys(data).forEach(function(probe_name) {
-  if (typeof(data[probe_name].alert) !== &#x27;undefined&#x27;) {
+  if (typeof(data[probe_name].alert) !== 'undefined') {
     data[probe_name].alert.<span class="apidocCodeKeywordSpan">tick</span>(getValue(data[probe_name].value));
   }
 });
@@ -4210,7 +4203,7 @@ function attachAlert(opts, conf) {
   this._count += n;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-  measurement : &#x27;mean&#x27;
+  measurement : 'mean'
 });
 
 var latency = 0;
@@ -4248,7 +4241,7 @@ setInterval(function() {
     <li>description and source-code<pre class="apidocCodePre">probe = function () {
   var self = this;
   // Get module configuration to enable alerts
-  if (this.getConf &#x26;&#x26; this.getConf())
+  if (this.getConf &amp;&amp; this.getConf())
     Probe._alert_activated = this.getConf().alert_enabled || true;
   else
     Probe._alert_activated = false;
@@ -4258,7 +4251,7 @@ setInterval(function() {
 
     var p_interval = setInterval(function() {
       Transport.send({
-        type : &#x27;axm:monitor&#x27;,
+        type : 'axm:monitor',
         data : cookData(Probe._var)
       });
       checkIssues(Probe._var);
@@ -4270,23 +4263,23 @@ setInterval(function() {
   return {
 <span class="apidocCodeCommentSpan">    /**
      * This reflect data to keymetrics
-     * pmx.transpose(&#x27;prop name&#x27;, fn)
+     * pmx.transpose('prop name', fn)
      *
      * or
      *
      * pmx.transpose({
-     *   name : &#x27;variable name&#x27;,
+     *   name : 'variable name',
      *   data : function() { return value }
      * });
      */
 </span>    transpose : function(variable_name, reporter) {
-      if (typeof variable_name === &#x27;object&#x27;) {
+      if (typeof variable_name === 'object') {
         reporter = variable_name.data;
         variable_name = variable_name.name;
       }
 
-      if (typeof reporter !== &#x27;function&#x27;) {
-        return console.error(&#x27;[PMX] reporter is not a function&#x27;);
+      if (typeof reporter !== 'function') {
+        return console.error('[PMX] reporter is not a function');
       }
 
       Probe._var[variable_name] = {
@@ -4297,9 +4290,9 @@ setInterval(function() {
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Metric] Name not defined&#x27;);
+        return console.error('[Probe][Metric] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       Probe._var[opts.name] = {
         value   : opts.value || 0,
@@ -4316,7 +4309,7 @@ setInterval(function() {
         val : function() {
           var value = Probe._var[opts.name].value;
 
-          if (typeof(value) == &#x27;function&#x27;)
+          if (typeof(value) == 'function')
             value = value();
 
           return value;
@@ -4328,20 +4321,20 @@ setInterval(function() {
     },
     histogram : function(opts) {
       if (!opts.name)
-        return console.error(&#x27;[Probe][Histogram] Name not defined&#x27;);
-      opts.measurement = opts.measurement || &#x27;mean&#x27;;
-      opts.unit = opts.unit || &#x27;&#x27;;
+        return console.error('[Probe][Histogram] Name not defined');
+      opts.measurement = opts.measurement || 'mean';
+      opts.unit = opts.unit || '';
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (Probe.AVAILABLE_MEASUREMENTS.indexOf(opts.measurement) == -1)
-        return console.error(&#x27;[Probe][Histogram] Measure type %s does not exists&#x27;, opts.measurement);
+        return console.error('[Probe][Histogram] Measure type %s does not exists', opts.measurement);
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       var histogram = new Histogram(opts);
 
       Probe._var[opts.name] = {
-        value: function() { return (Math.round(histogram.val() * 100) / 100) + &#x27;&#x27; + opts.unit },
+        value: function() { return (Math.round(histogram.val() * 100) / 100) + '' + opts.unit },
         agg_type: agg_type
       };
 
@@ -4357,16 +4350,16 @@ setInterval(function() {
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Meter] Name not defined&#x27;);
+        return console.error('[Probe][Meter] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
-      opts.unit = opts.unit || &#x27;&#x27;;
+      opts.unit = opts.unit || '';
 
       var meter = new Meter(opts);
 
       Probe._var[opts.name] = {
-        value: function() { return meter.val() + &#x27;&#x27; + opts.unit },
+        value: function() { return meter.val() + '' + opts.unit },
         agg_type: agg_type
       };
 
@@ -4382,9 +4375,9 @@ setInterval(function() {
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Counter] Name not defined&#x27;);
+        return console.error('[Probe][Counter] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       var counter = new Counter();
 
@@ -4403,7 +4396,7 @@ var probe = pmx.<span class="apidocCodeKeywordSpan">probe</span>();
 // Here the value function will be called each second to get the value
 // returned by Object.keys(users).length
 var metric = probe.metric({
-name    : &#x27;Realtime user&#x27;,
+name    : 'Realtime user',
 value   : function() {
   return Object.keys(users).length;
 ...</pre></li>
@@ -4438,18 +4431,18 @@ value   : function() {
   }
 
   if (!action_name)
-    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+    return console.error('[PMX] action.action_name is missing');
   if (!fn)
-    return console.error(&#x27;[PMX] emit.data is mission&#x27;);
+    return console.error('[PMX] emit.data is mission');
 
   if (!process.send) {
-    debug(&#x27;Process not running within PM2&#x27;);
+    debug('Process not running within PM2');
     return false;
   }
 
   // Notify the action
   Transport.send({
-    type : &#x27;axm:action&#x27;,
+    type : 'axm:action',
     data : {
       action_name : action_name,
       opts        : opts,
@@ -4464,7 +4457,7 @@ value   : function() {
     }
 
     Transport.send({
-      type        : &#x27;axm:reply&#x27;,
+      type        : 'axm:reply',
       data        : {
         return      : data,
         action_name : action_name
@@ -4472,28 +4465,28 @@ value   : function() {
     });
   }
 
-  process.on(&#x27;message&#x27;, function(data) {
+  process.on('message', function(data) {
     if (!data) return false;
 
     // In case 2 arguments has been set but no options has been transmitted
-    if (fn.length === 2 &#x26;&#x26; typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+    if (fn.length === 2 &amp;&amp; typeof(data) === 'string' &amp;&amp; data === action_name)
       return fn({}, reply);
 
     // In case 1 arguments has been set but options has been transmitted
-    if (fn.length === 1 &#x26;&#x26; typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+    if (fn.length === 1 &amp;&amp; typeof(data) === 'object' &amp;&amp; data.msg === action_name)
       return fn(reply);
 
 <span class="apidocCodeCommentSpan">    /**
      * Classical call
      */
-</span>    if (typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+</span>    if (typeof(data) === 'string' &amp;&amp; data === action_name)
       return fn(reply);
 
     /**
      * If data is an object == v2 protocol
      * Pass the opts as first argument
      */
-    if (typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+    if (typeof(data) === 'object' &amp;&amp; data.msg === action_name)
       return fn(data.opts, reply);
   });
 }</pre></li>
@@ -4504,9 +4497,9 @@ Simple action allows to trigger a function from Keymetrics. The function takes a
 Example:
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
-pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, function(reply) {
+pmx.<span class="apidocCodeKeywordSpan">action</span>('db:clean', function(reply) {
   clean.db(function() {
     /**
      * reply() must be called at the end of the action
@@ -4529,25 +4522,25 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
     <li>description and source-code<pre class="apidocCodePre">scopedAction = function (action_name, fn) {
 
   if (!action_name)
-    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+    return console.error('[PMX] action.action_name is missing');
   if (!fn)
-    return console.error(&#x27;[PMX] callback is missing&#x27;);
+    return console.error('[PMX] callback is missing');
 
   if (!process.send) {
-    debug(&#x27;Process not running within PM2&#x27;);
+    debug('Process not running within PM2');
     return false;
   }
 
   // Notify the action
   Transport.send({
-    type : &#x27;axm:action&#x27;,
+    type : 'axm:action',
     data : {
       action_name : action_name,
-      action_type : &#x27;scoped&#x27;
+      action_type : 'scoped'
     }
   });
 
-  process.on(&#x27;message&#x27;, function(data) {
+  process.on('message', function(data) {
     if (!data
         || data.uuid === undefined
         || data.action_name === undefined)
@@ -4557,7 +4550,7 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
       var res = {
         send : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:stream&#x27;,
+            type        : 'axm:scoped_action:stream',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -4567,7 +4560,7 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
         },
         error : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:error&#x27;,
+            type        : 'axm:scoped_action:error',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -4577,7 +4570,7 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
         },
         end : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:end&#x27;,
+            type        : 'axm:scoped_action:end',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -4589,7 +4582,7 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
 
       var d = domain.create();
 
-      d.on(&#x27;error&#x27;, function(err) {
+      d.on('error', function(err) {
         res.error(err.message || err.stack || err);
         setTimeout(function() {
           process.exit(1);
@@ -4611,11 +4604,11 @@ end the scoped action.
 Example:
 
 ```javascript
-pmx.<span class="apidocCodeKeywordSpan">scopedAction</span>(&#x27;long running lsof&#x27;, function(data, res) {
-var child = spawn(&#x27;lsof&#x27;, []);
+pmx.<span class="apidocCodeKeywordSpan">scopedAction</span>('long running lsof', function(data, res) {
+var child = spawn('lsof', []);
 
-child.stdout.on(&#x27;data&#x27;, function(chunk) {
-  chunk.toString().split(&#x27;\n&#x27;).forEach(function(line) {
+child.stdout.on('data', function(chunk) {
+  chunk.toString().split('\n').forEach(function(line) {
     res.send(line); // This send log to Keymetrics to be saved (for tracking)
   });
 });
@@ -4640,78 +4633,78 @@ child.stdout.on(&#x27;data&#x27;, function(chunk) {
   var self = this;
   var cmp;
 
-  if (typeof(opts.mode) === &#x27;undefined&#x27;)
-    return console.error(&#x27;[Probe][Metric] Mode undefined!&#x27;);
-  if (typeof(opts.cmp) === &#x27;string&#x27;) {
+  if (typeof(opts.mode) === 'undefined')
+    return console.error('[Probe][Metric] Mode undefined!');
+  if (typeof(opts.cmp) === 'string') {
     switch(opts.cmp) {
-      case &#x27;&#x3e;&#x27;:
+      case '&gt;':
       cmp = function(a,b) {
-          return (a &#x3e; b);
+          return (a &gt; b);
         };
         break;
-      case &#x27;&#x3c;&#x27;:
+      case '&lt;':
        cmp = function(a, b) {
-          return (a &#x3c; b);
+          return (a &lt; b);
         };
         break;
-      case &#x27;=&#x27;:
+      case '=':
          cmp = function(a,b) {
           return (a === b);
         };
         break;
       default:
-        return console.error(&#x27;[Probe][Metric] Mode does not exist!&#x27;);
+        return console.error('[Probe][Metric] Mode does not exist!');
     }
     self.cmp_mode = opts.cmp;
     opts.cmp = null;
   }
   else {
     cmp = function(a,b) {
-      return (a &#x3e; b);
+      return (a &gt; b);
     };
-    self.cmp_mode = &#x27;&#x3e;&#x27;;
+    self.cmp_mode = '&gt;';
   }
   switch(opts.mode) {
-    case &#x27;threshold&#x27;:
-      if (typeof(opts.value) === &#x27;undefined&#x27;)
-        return console.error(&#x27;[Probe][Metric][threshold] Val undefined!&#x27;);
+    case 'threshold':
+      if (typeof(opts.value) === 'undefined')
+        return console.error('[Probe][Metric][threshold] Val undefined!');
       this.cmp = opts.cmp || function(a,b) {
         return cmp(parseFloat(a), b);
       };
       break;
-    case &#x27;threshold-avg&#x27;:
-      if (typeof(opts.value) === &#x27;undefined&#x27;)
-        return console.error(&#x27;[Probe][Metric][threshold-avg] Val undefined!&#x27;);
+    case 'threshold-avg':
+      if (typeof(opts.value) === 'undefined')
+        return console.error('[Probe][Metric][threshold-avg] Val undefined!');
       this.sample = new Sample(opts.interval || 180);
       this.cmp = function(value, threshold) {
         this.sample.update(parseFloat(value));
         if (this.start) {
-          if (typeof(opts.cmp) !== &#x27;undefined&#x27; &#x26;&#x26; opts.cmp !== null)
+          if (typeof(opts.cmp) !== 'undefined' &amp;&amp; opts.cmp !== null)
             return opts.cmp(this.sample.getMean(), threshold);
           return cmp(this.sample.getMean(), threshold);
         }
       };
       break;
-    case &#x27;smart&#x27;:
+    case 'smart':
       this.sample = new Sample(opts.interval || 300);
       this.small = new Sample(opts.sample || 30);
       this.cmp = function(value, threshold) {
         if (value !== null) {
           this.sample.update(parseFloat(value));
           this.small.update(parseFloat(value));
-        //debug(&#x27;Check&#x27;, value, Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (Math
+        //debug('Check', value, Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (Math
 .sqrt(2 * Math.PI) * this.sample.getStddev()));
 
           if (this.start)
           //return false
             return (Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (Math.sqrt(2 * Math
-.PI) * this.sample.getStddev()) &#x3c; 0.00000001)
+.PI) * this.sample.getStddev()) &lt; 0.00000001)
         }
         return false;
       };
       break;
     default:
-      return console.error(&#x27;[Probe][Metric] Mode does not exist!&#x27;);
+      return console.error('[Probe][Metric] Mode does not exist!');
   }
   this.mode = opts.mode;
   this.start = false;
@@ -4722,7 +4715,7 @@ child.stdout.on(&#x27;data&#x27;, function(chunk) {
   this.reached = 0;
   this.nullCheck = 0;
   this.value =  opts.value || null;
-  this.msg = opts.msg || ((extra &#x26;&#x26; extra.name) ? (&#x27;Probe &#x27; + extra.name + &#x27; has reached value&#x27;) : &#x27;Alert value reached&#x27;);
+  this.msg = opts.msg || ((extra &amp;&amp; extra.name) ? ('Probe ' + extra.name + ' has reached value') : 'Alert value reached');
   this.func = opts.func || opts.action || null;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -4749,12 +4742,12 @@ child.stdout.on(&#x27;data&#x27;, function(chunk) {
     mode  : self.mode
   };
 
-  if (this.mode == &#x27;threshold&#x27;) {
+  if (this.mode == 'threshold') {
     ret.value = self.value;
     ret.cmp   = self.cmp_mode;
   }
 
-  if (this.mode == &#x27;threshold-avg&#x27;) {
+  if (this.mode == 'threshold-avg') {
     ret.value    = self.value;
     ret.interval = self.sample._size;
     ret.cmp      = self.cmp_mode;
@@ -4763,7 +4756,7 @@ child.stdout.on(&#x27;data&#x27;, function(chunk) {
   return ret;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-        data[probe_name].agg_type != &#x27;none&#x27;)
+        data[probe_name].agg_type != 'none')
       cooked_data[probe_name].agg_type = data[probe_name].agg_type;
 
     /**
@@ -4793,18 +4786,18 @@ child.stdout.on(&#x27;data&#x27;, function(chunk) {
   var self = this;
   if (this.reached === 0) {
     //Need 10 times null to trigger alert
-    if (value === null &#x26;&#x26; this.nullCheck &#x3c; 10) {
+    if (value === null &amp;&amp; this.nullCheck &lt; 10) {
       this.nullCheck += 1;
     }
     else if (this.cmp(value, this.value)) {
-      Notify.notify(this.msg + &#x27; &#x27; + this.value);
+      Notify.notify(this.msg + ' ' + this.value);
       // Delay a bit call to custom function to allow PM2 to receive notify msg
       if (this.func) setTimeout(function() {self.func(value)}, 50);
       this.reached = 1;
       this.nullCheck = 0;
     }
   }
-  else if (typeof(this.reached) !== &#x27;undefined&#x27;) {
+  else if (typeof(this.reached) !== 'undefined') {
     if (!this.cmp(value, this.value))
       this.reached = 0;
   }
@@ -4816,7 +4809,7 @@ child.stdout.on(&#x27;data&#x27;, function(chunk) {
  */
 function checkIssues(data) {
 Object.keys(data).forEach(function(probe_name) {
-  if (typeof(data[probe_name].alert) !== &#x27;undefined&#x27;) {
+  if (typeof(data[probe_name].alert) !== 'undefined') {
     data[probe_name].alert.<span class="apidocCodeKeywordSpan">tick</span>(getValue(data[probe_name].value));
   }
 });
@@ -4864,14 +4857,14 @@ function attachAlert(opts, conf) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">configureModule = function (opts) {
   Transport.send({
-    type : &#x27;axm:option:configuration&#x27;,
+    type : 'axm:option:configuration',
     data : opts
   }, false);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 } catch(e) {
   //console.error(e);
-  //console.error(&#x27;Error while parsing configuration in environment (%s)&#x27;, conf.module_name);
+  //console.error('Error while parsing configuration in environment (%s)', conf.module_name);
 }
 
 if (do_not_tell_pm2 == true) return conf;
@@ -4881,7 +4874,7 @@ return conf;
 };
 
 Options.getPID = function(file) {
-if (typeof(file) === &#x27;number&#x27;)
+if (typeof(file) === 'number')
   return file;
 return parseInt(fs.readFileSync(file).toString());
 ...</pre></li>
@@ -4897,7 +4890,7 @@ return parseInt(fs.readFileSync(file).toString());
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getPID = function (file) {
-  if (typeof(file) === &#x27;number&#x27;)
+  if (typeof(file) === 'number')
     return file;
   return parseInt(fs.readFileSync(file).toString());
 }</pre></li>
@@ -4943,7 +4936,7 @@ return parseInt(fs.readFileSync(file).toString());
       throw new Error(e);
     }
   } else {
-    conf.module_name = process.env.name || &#x27;outside-pm2&#x27;;
+    conf.module_name = process.env.name || 'outside-pm2';
     try {
       package_json = require(package_filepath);
 
@@ -4975,16 +4968,16 @@ return parseInt(fs.readFileSync(file).toString());
 
       // Obfuscate passwords
       Object.keys(conf.module_conf).forEach(function(key) {
-        if ((key == &#x27;password&#x27; || key == &#x27;passwd&#x27;) &#x26;&#x26;
-            conf.module_conf[key].length &#x3e;= 1) {
-          conf.module_conf[key] = &#x27;Password hidden&#x27;;
+        if ((key == 'password' || key == 'passwd') &amp;&amp;
+            conf.module_conf[key].length &gt;= 1) {
+          conf.module_conf[key] = 'Password hidden';
         }
 
       });
     }
   } catch(e) {
     //console.error(e);
-    //console.error(&#x27;Error while parsing configuration in environment (%s)&#x27;, conf.module_name);
+    //console.error('Error while parsing configuration in environment (%s)', conf.module_name);
   }
 
   if (do_not_tell_pm2 == true) return conf;
@@ -5022,11 +5015,11 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">resolvePidPaths = function (filepaths) {
-  if (typeof(filepaths) === &#x27;number&#x27;)
+  if (typeof(filepaths) === 'number')
     return filepaths;
 
   function detect(filepaths) {
-    var content = &#x27;&#x27;;
+    var content = '';
 
     filepaths.some(function(filepath) {
       try {
@@ -5067,8 +5060,8 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
 
   opts = opts || {};
 
-  if (typeof(opts.refresh) !== &#x27;function&#x27;)
-    throw new Error(&#x27;Refresh not defined or not a function&#x27;);
+  if (typeof(opts.refresh) !== 'function')
+    throw new Error('Refresh not defined or not a function');
 
   this._refresh = opts.refresh;
 
@@ -5079,7 +5072,7 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
   this._dev   = opts.dev || 0.2;
   this._callback = opts.callback || null;
   this._histogram = new Histogram();
-  this._calcDev = opts.calcDev || &#x27;ema&#x27;;
+  this._calcDev = opts.calcDev || 'ema';
 
 <span class="apidocCodeCommentSpan">  /*
    * Select function to compute deviation
@@ -5094,17 +5087,17 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
    * Display some probe if we need to debug
    */
   if (opts.debug === true) {
-    if (opts.probes.indexOf(&#x27;val&#x27;) != -1) {
+    if (opts.probes.indexOf('val') != -1) {
       this._metric2 = new probe.metric({
-        name  : &#x27;Value&#x27;,
+        name  : 'Value',
         value : function() {
           return self._refresh();
         }
       });
     }
-    if (opts.probes.indexOf(&#x27;ema&#x27;) != -1) {
+    if (opts.probes.indexOf('ema') != -1) {
       this._metric3 = new probe.metric({
-        name  : &#x27;EMA&#x27;,
+        name  : 'EMA',
         value : function() {
           return self._histogram.getEma();
         }
@@ -5137,7 +5130,7 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">medianDev = function () {
-  return ((this._histogram.getEma() - this._histogram._calculateMean()) / this._histogram._calculateMean() &#x3e; this._dev);
+  return ((this._histogram.getEma() - this._histogram._calculateMean()) / this._histogram._calculateMean() &gt; this._dev);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -5152,7 +5145,7 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">normalDev = function () {
-  return ((this._refresh() - this._histogram.getEma()) / this._histogram.getEma() &#x3e; this._dev);
+  return ((this._refresh() - this._histogram.getEma()) / this._histogram.getEma() &gt; this._dev);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -5169,20 +5162,20 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
     <li>description and source-code<pre class="apidocCodePre">start = function () {
   var self = this;
 
-  debug(&#x27;Checker started&#x27;);
+  debug('Checker started');
 
   this._interval_timer = setInterval(function() {
     self._histogram.update(self._refresh());
 
-    debug(&#x27;Check&#x27;, self._refresh(), self._histogram._calculateMean(), self._histogram.getEma());
+    debug('Check', self._refresh(), self._histogram._calculateMean(), self._histogram.getEma());
 
-    if (self._monitored === true &#x26;&#x26; self.computeDev() === true) {
+    if (self._monitored === true &amp;&amp; self.computeDev() === true) {
       self._counter++;
 <span class="apidocCodeCommentSpan">      /**
         * Triggers callback after N consecutive errors, then resets the counter
         */
-</span>      if (self._counter &#x3e;= self._ceil) {
-        debug(&#x27;Anomaly detected&#x27;, self._histogram.getEma(), self._refresh());
+</span>      if (self._counter &gt;= self._ceil) {
+        debug('Anomaly detected', self._histogram.getEma(), self._refresh());
         self._callback();
         self.counter = 0;
       }
@@ -5197,18 +5190,18 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
 
 Transaction.tracing = function (pmx, opts) {
 
-if (Array.isArray(opts.ignore_routes) &#x26;&#x26; opts.ignore_routes.length &#x3e; 0) {
+if (Array.isArray(opts.ignore_routes) &amp;&amp; opts.ignore_routes.length &gt; 0) {
   opts.ignoreFilter.url = opts.ignore_routes;
 }
 
-Transaction.tracer = require(&#x27;vxx&#x27;).<span class="apidocCodeKeywordSpan">start</span>(opts);
+Transaction.tracer = require('vxx').<span class="apidocCodeKeywordSpan">start</span>(opts);
 
 Options.configureModule({
   tracing_enabled : true
 });
 
 // broadcast to pm2 aggregator
-Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function(data) {
+Transaction.tracer.getBus().on('transaction', function(data) {
 ...</pre></li>
     </ul>
 
@@ -5243,13 +5236,13 @@ Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function(data) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">emit = function (name, data) {
   if (!name)
-    return console.error(&#x27;[AXM] emit.name is missing&#x27;);
+    return console.error('[AXM] emit.name is missing');
   if (!data)
-    return console.error(&#x27;[AXM] emit.data is missing&#x27;);
+    return console.error('[AXM] emit.data is missing');
 
   var inflight_obj = {};
 
-  if (typeof(data) == &#x27;object&#x27;)
+  if (typeof(data) == 'object')
     inflight_obj = JSON.parse(stringify(data));
   else {
     inflight_obj.data = data;
@@ -5258,7 +5251,7 @@ Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function(data) {
   inflight_obj.__name = name;
 
   Transport.send({
-    type : &#x27;human:event&#x27;,
+    type : 'human:event',
     data : inflight_obj
   }, true);
   return false;
@@ -5269,11 +5262,11 @@ Emit events and get historical and statistics.
 This is available in the **Events** page of Keymetrics.
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
-pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
-  user : &#x27;Alex registered&#x27;,
-  email : &#x27;thorustor@gmail.com&#x27;
+pmx.<span class="apidocCodeKeywordSpan">emit</span>('user:register', {
+  user : 'Alex registered',
+  email : 'thorustor@gmail.com'
 });
 ```
 
@@ -5297,7 +5290,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
   if (!custom_namespace)
-    custom_namespace = &#x27;axm&#x27;;
+    custom_namespace = 'axm';
 
   if (!global[custom_namespace])
     global[custom_namespace] = {};
@@ -5307,7 +5300,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
 
   this.interval = setInterval(function() {
     Transport.send({
-      type : &#x27;axm:monitor&#x27;,
+      type : 'axm:monitor',
       data : cookData(global[custom_namespace])
     });
   }, 990);
@@ -5330,7 +5323,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
   if (!custom_namespace)
-    custom_namespace = &#x27;axm&#x27;;
+    custom_namespace = 'axm';
 
   if (!global[custom_namespace])
     global[custom_namespace] = {};
@@ -5340,7 +5333,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
 
   this.interval = setInterval(function() {
     Transport.send({
-      type : &#x27;axm:monitor&#x27;,
+      type : 'axm:monitor',
       data : cookData(global[custom_namespace])
     });
   }, 990);
@@ -5398,10 +5391,10 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">catchPorts = function () {
   var ports_list = [];
-  var opened_ports = &#x27;N/A&#x27;;
+  var opened_ports = 'N/A';
 
   Probe.probe().metric({
-    name    : &#x27;Open ports&#x27;,
+    name    : 'Open ports',
     value   : function() { return opened_ports; }
   });
 
@@ -5410,13 +5403,13 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
   net_module.Server.prototype.listen = function() {
     var port = parseInt(arguments[0]);
 
-    if (!isNaN(port) &#x26;&#x26; ports_list.indexOf(port) === -1) {
+    if (!isNaN(port) &amp;&amp; ports_list.indexOf(port) === -1) {
       ports_list.push(port);
       opened_ports = ports_list.sort().join();
     }
 
-    this.once(&#x27;close&#x27;, function() {
-      if (ports_list.indexOf(port) &#x3e; -1) {
+    this.once('close', function() {
+      if (ports_list.indexOf(port) &gt; -1) {
         ports_list.splice(ports_list.indexOf(port), 1);
         opened_ports = ports_list.sort().join();
       }
@@ -5456,17 +5449,17 @@ if (opts.http)
     <li>description and source-code<pre class="apidocCodePre">catchTraffic = function () {
   var download = 0;
   var upload   = 0;
-  var up       = &#x27;0 B/sec&#x27;;
-  var down     = &#x27;0 B/sec&#x27;;
+  var up       = '0 B/sec';
+  var down     = '0 B/sec';
 
   var filter = function(bytes) {
     var to_fixed = 0;
 
     if (bytes === 0)
       ;
-    else if (bytes &#x3c; 1024)
+    else if (bytes &lt; 1024)
       to_fixed = 6;
-    else if (bytes &#x3c; (1024 * 1024))
+    else if (bytes &lt; (1024 * 1024))
       to_fixed = 3;
     else
       to_fixed = 2;
@@ -5475,20 +5468,20 @@ if (opts.http)
 
     var cut_zeros = 0;
 
-    for (var i = (bytes.length - 1); i &#x3e; 0; --i) {
-      if (bytes[i] === &#x27;.&#x27;) {
+    for (var i = (bytes.length - 1); i &gt; 0; --i) {
+      if (bytes[i] === '.') {
         ++cut_zeros;
         break;
       }
-      if (bytes[i] !== &#x27;0&#x27;)
+      if (bytes[i] !== '0')
         break;
       ++cut_zeros;
     }
 
-    if (cut_zeros &#x3e; 0)
+    if (cut_zeros &gt; 0)
       bytes = bytes.slice(0, -(cut_zeros));
 
-    return (bytes + &#x27; MB/s&#x27;);
+    return (bytes + ' MB/s');
   };
 
   var interval = setInterval(function() {
@@ -5501,14 +5494,14 @@ if (opts.http)
   interval.unref();
 
   Probe.probe().metric({
-    name     : &#x27;Network Download&#x27;,
-    agg_type : &#x27;sum&#x27;,
+    name     : 'Network Download',
+    agg_type : 'sum',
     value    : function() { return down; }
   });
 
   Probe.probe().metric({
-    name     : &#x27;Network Upload&#x27;,
-    agg_type : &#x27;sum&#x27;,
+    name     : 'Network Upload',
+    agg_type : 'sum',
     value    : function() { return up; }
   });
 
@@ -5527,7 +5520,7 @@ if (opts.http)
     if (!this.monitored) {
       this.monitored = true;
 
-      this.on(&#x27;data&#x27;, function(data) {
+      this.on('data', function(data) {
         if (data.length)
           download += data.length;
       });
@@ -5576,7 +5569,7 @@ PMX.catchAll(opts);
   //debug(ret_err);
 
   Transport.send({
-    type : &#x27;process:exception&#x27;,
+    type : 'process:exception',
     data : ret_err
   }, true);
 
@@ -5588,13 +5581,13 @@ PMX.catchAll(opts);
 If you need to alert about any critical errors you can do it programmatically:
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
 pmx.<span class="apidocCodeKeywordSpan">notify</span>({ success : false });
 
-pmx.notify(&#x27;This is an error&#x27;);
+pmx.notify('This is an error');
 
-pmx.notify(new Error(&#x27;This is an error&#x27;));
+pmx.notify(new Error('This is an error'));
 ```
 
 ### Add Verbosity to an Alert: Express Error handler
@@ -5613,12 +5606,12 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
     <li>description and source-code<pre class="apidocCodePre">_interpretError = function (err) {
   var s_err = {};
 
-  if (typeof(err) === &#x27;string&#x27;) {
+  if (typeof(err) === 'string') {
     // Simple string processing
     s_err.message = err;
     s_err.stack = err;
   }
-  else if (!(err instanceof Error) &#x26;&#x26; typeof(err) === &#x27;object&#x27;) {
+  else if (!(err instanceof Error) &amp;&amp; typeof(err) === 'object') {
     // JSON processing
     s_err.message = err;
     s_err.stack = err;
@@ -5641,8 +5634,8 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
-if (listener === &#x27;unhandledRejection&#x27;) {
-  error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+if (listener === 'unhandledRejection') {
+  error = 'You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n' + error;
 }
 
 console.error(error);
@@ -5650,8 +5643,8 @@ if (err)
   var errObj = Notify.<span class="apidocCodeKeywordSpan">_interpretError</span>(err);
 
 Transport.send({
-  type : &#x27;process:exception&#x27;,
-  data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+  type : 'process:exception',
+  data : errObj !== undefined ? errObj : {message: 'No error but ' + listener + ' was caught!' }
 }, true);
 
 if (!process.listeners(listener).filter(function (listener) {
@@ -5669,7 +5662,7 @@ if (!process.listeners(listener).filter(function (listener) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">catchAll = function (opts) {
 
-  var callsites = require(&#x27;./utils/error-callsites&#x27;)
+  var callsites = require('./utils/error-callsites')
 
   if (opts === undefined)
     opts = { errors : true };
@@ -5678,20 +5671,20 @@ if (!process.listeners(listener).filter(function (listener) {
     error : opts.errors
   });
 
-  if (process.env.exec_mode === &#x27;cluster_mode&#x27;)
+  if (process.env.exec_mode === 'cluster_mode')
     return false;
 
   function getUncaughtExceptionListener(listener) {
     return function uncaughtListener(err) {
-      var error = err &#x26;&#x26; err.stack ? err.stack : err;
+      var error = err &amp;&amp; err.stack ? err.stack : err;
 
-      if (err &#x26;&#x26; err.length) {
+      if (err &amp;&amp; err.length) {
         err._length = err.length;
         delete err.length;
       }
 
-      if (listener === &#x27;unhandledRejection&#x27;) {
-        error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+      if (listener === 'unhandledRejection') {
+        error = 'You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n' + error;
       }
 
       console.error(error);
@@ -5699,28 +5692,28 @@ if (!process.listeners(listener).filter(function (listener) {
         var errObj = Notify._interpretError(err);
 
       Transport.send({
-        type : &#x27;process:exception&#x27;,
-        data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+        type : 'process:exception',
+        data : errObj !== undefined ? errObj : {message: 'No error but ' + listener + ' was caught!' }
       }, true);
 
       if (!process.listeners(listener).filter(function (listener) {
         return listener !== uncaughtListener;
       }).length) {
 
-        if (listener == &#x27;uncaughtException&#x27;)
+        if (listener == 'uncaughtException')
           process.exit(1);
       }
     }
   }
 
-  if (opts.errors === true &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length === 2) {
-    process.once(&#x27;uncaughtException&#x27;, getUncaughtExceptionListener(&#x27;uncaughtException&#x27;));
-    process.once(&#x27;unhandledRejection&#x27;, getUncaughtExceptionListener(&#x27;unhandledRejection&#x27;));
+  if (opts.errors === true &amp;&amp; util.inspect(process.listeners('uncaughtException')).length === 2) {
+    process.once('uncaughtException', getUncaughtExceptionListener('uncaughtException'));
+    process.once('unhandledRejection', getUncaughtExceptionListener('unhandledRejection'));
   }
   else if (opts.errors === false
-           &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length !== 2) {
-    process.removeAllListeners(&#x27;uncaughtException&#x27;);
-    process.removeAllListeners(&#x27;unhandledRejection&#x27;);
+           &amp;&amp; util.inspect(process.listeners('uncaughtException')).length !== 2) {
+    process.removeAllListeners('uncaughtException');
+    process.removeAllListeners('unhandledRejection');
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -5738,7 +5731,7 @@ if (opts.profiling)
 
 if (opts.custom_probes == true) {
   // Event loop monitoring
-  require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+  require('./probes/pacemaker.js')(PMX);
 ...</pre></li>
     </ul>
 
@@ -5759,7 +5752,7 @@ if (opts.custom_probes == true) {
   });
 
   return function errorHandler(err, req, res, next) {
-    if (res.statusCode &#x3c; 400) res.statusCode = 500;
+    if (res.statusCode &lt; 400) res.statusCode = 500;
 
     //debug(err.stack || err);
 
@@ -5770,7 +5763,7 @@ if (opts.custom_probes == true) {
     err.session = req.session;
 
     Transport.send({
-      type  : &#x27;process:exception&#x27;,
+      type  : 'process:exception',
       data  : jsonize(err)
     }, true);
     return next(err);
@@ -5779,7 +5772,7 @@ if (opts.custom_probes == true) {
     <li>example usage<pre class="apidocCodePre">...
 
 // All my routes
-app.get(&#x27;/&#x27; ...);
+app.get('/' ...);
 app.post(...);
 // All my routes
 
@@ -5813,12 +5806,12 @@ This is available in the **Events** page of Keymetrics.
     <li>description and source-code<pre class="apidocCodePre">_interpretError = function (err) {
   var s_err = {};
 
-  if (typeof(err) === &#x27;string&#x27;) {
+  if (typeof(err) === 'string') {
     // Simple string processing
     s_err.message = err;
     s_err.stack = err;
   }
-  else if (!(err instanceof Error) &#x26;&#x26; typeof(err) === &#x27;object&#x27;) {
+  else if (!(err instanceof Error) &amp;&amp; typeof(err) === 'object') {
     // JSON processing
     s_err.message = err;
     s_err.stack = err;
@@ -5841,8 +5834,8 @@ This is available in the **Events** page of Keymetrics.
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
-if (listener === &#x27;unhandledRejection&#x27;) {
-  error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+if (listener === 'unhandledRejection') {
+  error = 'You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n' + error;
 }
 
 console.error(error);
@@ -5850,8 +5843,8 @@ if (err)
   var errObj = Notify.<span class="apidocCodeKeywordSpan">_interpretError</span>(err);
 
 Transport.send({
-  type : &#x27;process:exception&#x27;,
-  data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+  type : 'process:exception',
+  data : errObj !== undefined ? errObj : {message: 'No error but ' + listener + ' was caught!' }
 }, true);
 
 if (!process.listeners(listener).filter(function (listener) {
@@ -5874,18 +5867,18 @@ if (!process.listeners(listener).filter(function (listener) {
   }
 
   if (!action_name)
-    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+    return console.error('[PMX] action.action_name is missing');
   if (!fn)
-    return console.error(&#x27;[PMX] emit.data is mission&#x27;);
+    return console.error('[PMX] emit.data is mission');
 
   if (!process.send) {
-    debug(&#x27;Process not running within PM2&#x27;);
+    debug('Process not running within PM2');
     return false;
   }
 
   // Notify the action
   Transport.send({
-    type : &#x27;axm:action&#x27;,
+    type : 'axm:action',
     data : {
       action_name : action_name,
       opts        : opts,
@@ -5900,7 +5893,7 @@ if (!process.listeners(listener).filter(function (listener) {
     }
 
     Transport.send({
-      type        : &#x27;axm:reply&#x27;,
+      type        : 'axm:reply',
       data        : {
         return      : data,
         action_name : action_name
@@ -5908,28 +5901,28 @@ if (!process.listeners(listener).filter(function (listener) {
     });
   }
 
-  process.on(&#x27;message&#x27;, function(data) {
+  process.on('message', function(data) {
     if (!data) return false;
 
     // In case 2 arguments has been set but no options has been transmitted
-    if (fn.length === 2 &#x26;&#x26; typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+    if (fn.length === 2 &amp;&amp; typeof(data) === 'string' &amp;&amp; data === action_name)
       return fn({}, reply);
 
     // In case 1 arguments has been set but options has been transmitted
-    if (fn.length === 1 &#x26;&#x26; typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+    if (fn.length === 1 &amp;&amp; typeof(data) === 'object' &amp;&amp; data.msg === action_name)
       return fn(reply);
 
 <span class="apidocCodeCommentSpan">    /**
      * Classical call
      */
-</span>    if (typeof(data) === &#x27;string&#x27; &#x26;&#x26; data === action_name)
+</span>    if (typeof(data) === 'string' &amp;&amp; data === action_name)
       return fn(reply);
 
     /**
      * If data is an object == v2 protocol
      * Pass the opts as first argument
      */
-    if (typeof(data) === &#x27;object&#x27; &#x26;&#x26; data.msg === action_name)
+    if (typeof(data) === 'object' &amp;&amp; data.msg === action_name)
       return fn(data.opts, reply);
   });
 }</pre></li>
@@ -5940,9 +5933,9 @@ Simple action allows to trigger a function from Keymetrics. The function takes a
 Example:
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
-pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, function(reply) {
+pmx.<span class="apidocCodeKeywordSpan">action</span>('db:clean', function(reply) {
   clean.db(function() {
     /**
      * reply() must be called at the end of the action
@@ -5964,7 +5957,7 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
     <ul>
     <li>description and source-code<pre class="apidocCodePre">catchAll = function (opts) {
 
-  var callsites = require(&#x27;./utils/error-callsites&#x27;)
+  var callsites = require('./utils/error-callsites')
 
   if (opts === undefined)
     opts = { errors : true };
@@ -5973,20 +5966,20 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
     error : opts.errors
   });
 
-  if (process.env.exec_mode === &#x27;cluster_mode&#x27;)
+  if (process.env.exec_mode === 'cluster_mode')
     return false;
 
   function getUncaughtExceptionListener(listener) {
     return function uncaughtListener(err) {
-      var error = err &#x26;&#x26; err.stack ? err.stack : err;
+      var error = err &amp;&amp; err.stack ? err.stack : err;
 
-      if (err &#x26;&#x26; err.length) {
+      if (err &amp;&amp; err.length) {
         err._length = err.length;
         delete err.length;
       }
 
-      if (listener === &#x27;unhandledRejection&#x27;) {
-        error = &#x27;You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n&#x27; + error;
+      if (listener === 'unhandledRejection') {
+        error = 'You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:\n' + error;
       }
 
       console.error(error);
@@ -5994,28 +5987,28 @@ pmx.<span class="apidocCodeKeywordSpan">action</span>(&#x27;db:clean&#x27;, func
         var errObj = Notify._interpretError(err);
 
       Transport.send({
-        type : &#x27;process:exception&#x27;,
-        data : errObj !== undefined ? errObj : {message: &#x27;No error but &#x27; + listener + &#x27; was caught!&#x27; }
+        type : 'process:exception',
+        data : errObj !== undefined ? errObj : {message: 'No error but ' + listener + ' was caught!' }
       }, true);
 
       if (!process.listeners(listener).filter(function (listener) {
         return listener !== uncaughtListener;
       }).length) {
 
-        if (listener == &#x27;uncaughtException&#x27;)
+        if (listener == 'uncaughtException')
           process.exit(1);
       }
     }
   }
 
-  if (opts.errors === true &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length === 2) {
-    process.once(&#x27;uncaughtException&#x27;, getUncaughtExceptionListener(&#x27;uncaughtException&#x27;));
-    process.once(&#x27;unhandledRejection&#x27;, getUncaughtExceptionListener(&#x27;unhandledRejection&#x27;));
+  if (opts.errors === true &amp;&amp; util.inspect(process.listeners('uncaughtException')).length === 2) {
+    process.once('uncaughtException', getUncaughtExceptionListener('uncaughtException'));
+    process.once('unhandledRejection', getUncaughtExceptionListener('unhandledRejection'));
   }
   else if (opts.errors === false
-           &#x26;&#x26; util.inspect(process.listeners(&#x27;uncaughtException&#x27;)).length !== 2) {
-    process.removeAllListeners(&#x27;uncaughtException&#x27;);
-    process.removeAllListeners(&#x27;unhandledRejection&#x27;);
+           &amp;&amp; util.inspect(process.listeners('uncaughtException')).length !== 2) {
+    process.removeAllListeners('uncaughtException');
+    process.removeAllListeners('unhandledRejection');
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -6033,7 +6026,7 @@ if (opts.profiling)
 
 if (opts.custom_probes == true) {
   // Event loop monitoring
-  require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+  require('./probes/pacemaker.js')(PMX);
 ...</pre></li>
     </ul>
 
@@ -6048,10 +6041,10 @@ if (opts.custom_probes == true) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">catchPorts = function () {
   var ports_list = [];
-  var opened_ports = &#x27;N/A&#x27;;
+  var opened_ports = 'N/A';
 
   Probe.probe().metric({
-    name    : &#x27;Open ports&#x27;,
+    name    : 'Open ports',
     value   : function() { return opened_ports; }
   });
 
@@ -6060,13 +6053,13 @@ if (opts.custom_probes == true) {
   net_module.Server.prototype.listen = function() {
     var port = parseInt(arguments[0]);
 
-    if (!isNaN(port) &#x26;&#x26; ports_list.indexOf(port) === -1) {
+    if (!isNaN(port) &amp;&amp; ports_list.indexOf(port) === -1) {
       ports_list.push(port);
       opened_ports = ports_list.sort().join();
     }
 
-    this.once(&#x27;close&#x27;, function() {
-      if (ports_list.indexOf(port) &#x3e; -1) {
+    this.once('close', function() {
+      if (ports_list.indexOf(port) &gt; -1) {
         ports_list.splice(ports_list.indexOf(port), 1);
         opened_ports = ports_list.sort().join();
       }
@@ -6106,17 +6099,17 @@ if (opts.http)
     <li>description and source-code<pre class="apidocCodePre">catchTraffic = function () {
   var download = 0;
   var upload   = 0;
-  var up       = &#x27;0 B/sec&#x27;;
-  var down     = &#x27;0 B/sec&#x27;;
+  var up       = '0 B/sec';
+  var down     = '0 B/sec';
 
   var filter = function(bytes) {
     var to_fixed = 0;
 
     if (bytes === 0)
       ;
-    else if (bytes &#x3c; 1024)
+    else if (bytes &lt; 1024)
       to_fixed = 6;
-    else if (bytes &#x3c; (1024 * 1024))
+    else if (bytes &lt; (1024 * 1024))
       to_fixed = 3;
     else
       to_fixed = 2;
@@ -6125,20 +6118,20 @@ if (opts.http)
 
     var cut_zeros = 0;
 
-    for (var i = (bytes.length - 1); i &#x3e; 0; --i) {
-      if (bytes[i] === &#x27;.&#x27;) {
+    for (var i = (bytes.length - 1); i &gt; 0; --i) {
+      if (bytes[i] === '.') {
         ++cut_zeros;
         break;
       }
-      if (bytes[i] !== &#x27;0&#x27;)
+      if (bytes[i] !== '0')
         break;
       ++cut_zeros;
     }
 
-    if (cut_zeros &#x3e; 0)
+    if (cut_zeros &gt; 0)
       bytes = bytes.slice(0, -(cut_zeros));
 
-    return (bytes + &#x27; MB/s&#x27;);
+    return (bytes + ' MB/s');
   };
 
   var interval = setInterval(function() {
@@ -6151,14 +6144,14 @@ if (opts.http)
   interval.unref();
 
   Probe.probe().metric({
-    name     : &#x27;Network Download&#x27;,
-    agg_type : &#x27;sum&#x27;,
+    name     : 'Network Download',
+    agg_type : 'sum',
     value    : function() { return down; }
   });
 
   Probe.probe().metric({
-    name     : &#x27;Network Upload&#x27;,
-    agg_type : &#x27;sum&#x27;,
+    name     : 'Network Upload',
+    agg_type : 'sum',
     value    : function() { return up; }
   });
 
@@ -6177,7 +6170,7 @@ if (opts.http)
     if (!this.monitored) {
       this.monitored = true;
 
-      this.on(&#x27;data&#x27;, function(data) {
+      this.on('data', function(data) {
         if (data.length)
           download += data.length;
       });
@@ -6216,14 +6209,14 @@ PMX.catchAll(opts);
     <ul>
     <li>description and source-code<pre class="apidocCodePre">configureModule = function (opts) {
   Transport.send({
-    type : &#x27;axm:option:configuration&#x27;,
+    type : 'axm:option:configuration',
     data : opts
   }, false);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 } catch(e) {
   //console.error(e);
-  //console.error(&#x27;Error while parsing configuration in environment (%s)&#x27;, conf.module_name);
+  //console.error('Error while parsing configuration in environment (%s)', conf.module_name);
 }
 
 if (do_not_tell_pm2 == true) return conf;
@@ -6233,7 +6226,7 @@ return conf;
 };
 
 Options.getPID = function(file) {
-if (typeof(file) === &#x27;number&#x27;)
+if (typeof(file) === 'number')
   return file;
 return parseInt(fs.readFileSync(file).toString());
 ...</pre></li>
@@ -6253,9 +6246,9 @@ return parseInt(fs.readFileSync(file).toString());
 
   (function look_for_profiler(require_paths) {
     if (!require_paths[0])
-      return cb(new Error(&#x27;Module not found&#x27;));
+      return cb(new Error('Module not found'));
 
-    var profiler_path = path.join(require_paths[0], &#x27;v8-profiler&#x27;);
+    var profiler_path = path.join(require_paths[0], 'v8-profiler');
 
     fs.exists(profiler_path, function(exist) {
       if (exist)
@@ -6295,13 +6288,13 @@ Profiling.v8Profiling = function(pmx) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">emit = function (name, data) {
   if (!name)
-    return console.error(&#x27;[AXM] emit.name is missing&#x27;);
+    return console.error('[AXM] emit.name is missing');
   if (!data)
-    return console.error(&#x27;[AXM] emit.data is missing&#x27;);
+    return console.error('[AXM] emit.data is missing');
 
   var inflight_obj = {};
 
-  if (typeof(data) == &#x27;object&#x27;)
+  if (typeof(data) == 'object')
     inflight_obj = JSON.parse(stringify(data));
   else {
     inflight_obj.data = data;
@@ -6310,7 +6303,7 @@ Profiling.v8Profiling = function(pmx) {
   inflight_obj.__name = name;
 
   Transport.send({
-    type : &#x27;human:event&#x27;,
+    type : 'human:event',
     data : inflight_obj
   }, true);
   return false;
@@ -6321,11 +6314,11 @@ Emit events and get historical and statistics.
 This is available in the **Events** page of Keymetrics.
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
-pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
-  user : &#x27;Alex registered&#x27;,
-  email : &#x27;thorustor@gmail.com&#x27;
+pmx.<span class="apidocCodeKeywordSpan">emit</span>('user:register', {
+  user : 'Alex registered',
+  email : 'thorustor@gmail.com'
 });
 ```
 
@@ -6344,7 +6337,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
   if (!custom_namespace)
-    custom_namespace = &#x27;axm&#x27;;
+    custom_namespace = 'axm';
 
   if (!global[custom_namespace])
     global[custom_namespace] = {};
@@ -6354,7 +6347,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
 
   this.interval = setInterval(function() {
     Transport.send({
-      type : &#x27;axm:monitor&#x27;,
+      type : 'axm:monitor',
       data : cookData(global[custom_namespace])
     });
   }, 990);
@@ -6377,7 +6370,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function enableProbes(custom_namespace) {
   if (!custom_namespace)
-    custom_namespace = &#x27;axm&#x27;;
+    custom_namespace = 'axm';
 
   if (!global[custom_namespace])
     global[custom_namespace] = {};
@@ -6387,7 +6380,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
 
   this.interval = setInterval(function() {
     Transport.send({
-      type : &#x27;axm:monitor&#x27;,
+      type : 'axm:monitor',
       data : cookData(global[custom_namespace])
     });
   }, 990);
@@ -6412,11 +6405,11 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
   try {
     var profiler = require(profiler_path);
   } catch(e) {
-    debug(&#x27;v8-profiler module not installed&#x27;, e);
+    debug('v8-profiler module not installed', e);
     return false;
   }
 
-  debug(&#x27;v8-profiler sucessfully enabled&#x27;);
+  debug('v8-profiler sucessfully enabled');
 
 <span class="apidocCodeCommentSpan">  /**
    * Tell Keymetrics that profiling is possible
@@ -6429,11 +6422,11 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
   /**
    * Heap snapshot
    */
-  pmx.action(&#x27;km:heapdump&#x27;, function(reply) {
-    var dump_file = path.join(os.tmpDir(), Date.now() + &#x27;.heapsnapshot&#x27;);
+  pmx.action('km:heapdump', function(reply) {
+    var dump_file = path.join(os.tmpDir(), Date.now() + '.heapsnapshot');
 
-    var snapshot = profiler.takeSnapshot(&#x27;km-heap-snapshot&#x27;);
-    var buffer    = &#x27;&#x27;;
+    var snapshot = profiler.takeSnapshot('km-heap-snapshot');
+    var buffer    = '';
 
     snapshot.serialize(
       function iterator(data, length) {
@@ -6442,7 +6435,7 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
         snapshot.delete();
 
         fs.writeFile(dump_file, buffer, function (err) {
-          debug(&#x27;Heap dump file flushed (e=&#x27;, err);
+          debug('Heap dump file flushed (e=', err);
 
           if (err) {
             return reply({
@@ -6463,15 +6456,15 @@ pmx.<span class="apidocCodeKeywordSpan">emit</span>(&#x27;user:register&#x27;, {
   /**
    * CPU profiling snapshot
    */
-  var ns_cpu_profiling        = &#x27;km-cpu-profiling&#x27;;
-  var cpu_dump_file = path.join(os.tmpDir(), Date.now() + &#x27;.cpuprofile&#x27;);
+  var ns_cpu_profiling        = 'km-cpu-profiling';
+  var cpu_dump_file = path.join(os.tmpDir(), Date.now() + '.cpuprofile');
 
-  pmx.action(&#x27;km:cpu:profiling:start&#x27;, function(reply) {
+  pmx.action('km:cpu:profiling:start', function(reply) {
     profiler.startProfiling(ns_cpu_profiling);
     return reply({ success : true });
   });
 
-  pmx.action(&#x27;km:cpu:profiling:stop&#x27;, function(reply) {
+  pmx.action('km:cpu:profiling:stop', function(reply) {
     var cpu = profiler.stopProfiling(ns_cpu_profiling);
 
     fs.writeFile(cpu_dump_file, JSON.stringify(cpu), function(err) {
@@ -6521,7 +6514,7 @@ Profiling.v8Profiling = function(pmx) {
   });
 
   return function errorHandler(err, req, res, next) {
-    if (res.statusCode &#x3c; 400) res.statusCode = 500;
+    if (res.statusCode &lt; 400) res.statusCode = 500;
 
     //debug(err.stack || err);
 
@@ -6532,7 +6525,7 @@ Profiling.v8Profiling = function(pmx) {
     err.session = req.session;
 
     Transport.send({
-      type  : &#x27;process:exception&#x27;,
+      type  : 'process:exception',
       data  : jsonize(err)
     }, true);
     return next(err);
@@ -6541,7 +6534,7 @@ Profiling.v8Profiling = function(pmx) {
     <li>example usage<pre class="apidocCodePre">...
 
 // All my routes
-app.get(&#x27;/&#x27; ...);
+app.get('/' ...);
 app.post(...);
 // All my routes
 
@@ -6576,7 +6569,7 @@ This is available in the **Events** page of Keymetrics.
 Probe.probe = function() {
 var self = this;
 // Get module configuration to enable alerts
-if (this.getConf &#x26;&#x26; this.<span class="apidocCodeKeywordSpan">getConf</span>())
+if (this.getConf &amp;&amp; this.<span class="apidocCodeKeywordSpan">getConf</span>())
   Probe._alert_activated = this.getConf().alert_enabled || true;
 else
   Probe._alert_activated = false;
@@ -6611,7 +6604,7 @@ if (Probe._started == false) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getPID = function (file) {
-  if (typeof(file) === &#x27;number&#x27;)
+  if (typeof(file) === 'number')
     return file;
   return parseInt(fs.readFileSync(file).toString());
 }</pre></li>
@@ -6628,9 +6621,9 @@ if (Probe._started == false) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">http = function (opts) {
-  var Module = require(&#x27;module&#x27;);
+  var Module = require('module');
 
-  debug(&#x27;Wrapping HTTP routes&#x27;);
+  debug('Wrapping HTTP routes');
 
   if (Array.isArray(opts)) {
     var routes = JSON.parse(JSON.stringify(opts));
@@ -6648,9 +6641,9 @@ if (Probe._started == false) {
     ignore_routes : []
   }, opts);
 
-  Proxy.wrap(Module, &#x27;_load&#x27;, function(load) {
+  Proxy.wrap(Module, '_load', function(load) {
     if (load.__axm_original) {
-      debug(&#x27;HTTP routes have already been wrapped before&#x27;);
+      debug('HTTP routes have already been wrapped before');
 
       Options.configureModule({
         latency : opts.http
@@ -6660,7 +6653,7 @@ if (Probe._started == false) {
         return function(file) { return load.__axm_original.apply(this, arguments) };
       } else {
         return function(file) {
-          if (file === &#x27;http&#x27; || file === &#x27;https&#x27;)
+          if (file === 'http' || file === 'https')
             return SimpleHttpWrap(opts, load.__axm_original.apply(this, arguments));
           else
             return load.__axm_original.apply(this, arguments);
@@ -6669,9 +6662,9 @@ if (Probe._started == false) {
     }
 
     return function(file) {
-      if (opts.http &#x26;&#x26;
-          (file === &#x27;http&#x27; || file === &#x27;https&#x27;)) {
-        debug(&#x27;http module being required&#x27;);
+      if (opts.http &amp;&amp;
+          (file === 'http' || file === 'https')) {
+        debug('http module being required');
         Options.configureModule({
           latency : true
         });
@@ -6723,7 +6716,7 @@ if (opts.custom_probes == true) {
     profiling     : true,
     errors        : true,
     // By default if you add alert subfield in custom
-    // it&#x27;s going to be enabled
+    // it's going to be enabled
     alert_enabled : true,
     custom_probes : true,
     network       : false,
@@ -6732,10 +6725,10 @@ if (opts.custom_probes == true) {
     // VXX options
     // ignoreFilter.url is aliased to ignore_routes
     ignoreFilter: {
-      &#x27;url&#x27;: [],
-      &#x27;method&#x27;: [&#x27;OPTIONS&#x27;]
+      'url': [],
+      'method': ['OPTIONS']
     },
-    // &#x27;express&#x27;, &#x27;hapi&#x27;, &#x27;http&#x27;, &#x27;restify&#x27;
+    // 'express', 'hapi', 'http', 'restify'
     excludedHooks: []
   }, opts);
 
@@ -6759,11 +6752,11 @@ if (opts.custom_probes == true) {
 
   if (opts.custom_probes == true) {
     // Event loop monitoring
-    require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+    require('./probes/pacemaker.js')(PMX);
   }
 
   if (opts.default_actions == true) {
-    //require(&#x27;./actions/default.js&#x27;)(PMX);
+    //require('./actions/default.js')(PMX);
   }
 
   opts.isModule = false;
@@ -6807,9 +6800,9 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
   }, opts);
 
   opts.widget = util._extend({
-    type : &#x27;generic&#x27;,
-    logo : &#x27;https://app.keymetrics.io/img/logo/keymetrics-300.png&#x27;,
-    theme            : [&#x27;#111111&#x27;, &#x27;#1B2228&#x27;, &#x27;#807C7C&#x27;, &#x27;#807C7C&#x27;]
+    type : 'generic',
+    logo : 'https://app.keymetrics.io/img/logo/keymetrics-300.png',
+    theme            : ['#111111', '#1B2228', '#807C7C', '#807C7C']
   }, opts.widget);
 
   opts.isModule = true;
@@ -6820,7 +6813,7 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
 
   this._pmx_conf = opts;
 
-  if (cb &#x26;&#x26; typeof(cb) == &#x27;function&#x27;)
+  if (cb &amp;&amp; typeof(cb) == 'function')
     return cb(null, opts);
 
   return opts;
@@ -6844,7 +6837,7 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
   //debug(ret_err);
 
   Transport.send({
-    type : &#x27;process:exception&#x27;,
+    type : 'process:exception',
     data : ret_err
   }, true);
 
@@ -6856,13 +6849,13 @@ pmx.<span class="apidocCodeKeywordSpan">init</span>({
 If you need to alert about any critical errors you can do it programmatically:
 
 ```javascript
-var pmx = require(&#x27;pmx&#x27;);
+var pmx = require('pmx');
 
 pmx.<span class="apidocCodeKeywordSpan">notify</span>({ success : false });
 
-pmx.notify(&#x27;This is an error&#x27;);
+pmx.notify('This is an error');
 
-pmx.notify(new Error(&#x27;This is an error&#x27;));
+pmx.notify(new Error('This is an error'));
 ```
 
 ### Add Verbosity to an Alert: Express Error handler
@@ -6881,7 +6874,7 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
     <li>description and source-code<pre class="apidocCodePre">probe = function () {
   var self = this;
   // Get module configuration to enable alerts
-  if (this.getConf &#x26;&#x26; this.getConf())
+  if (this.getConf &amp;&amp; this.getConf())
     Probe._alert_activated = this.getConf().alert_enabled || true;
   else
     Probe._alert_activated = false;
@@ -6891,7 +6884,7 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
 
     var p_interval = setInterval(function() {
       Transport.send({
-        type : &#x27;axm:monitor&#x27;,
+        type : 'axm:monitor',
         data : cookData(Probe._var)
       });
       checkIssues(Probe._var);
@@ -6903,23 +6896,23 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
   return {
 <span class="apidocCodeCommentSpan">    /**
      * This reflect data to keymetrics
-     * pmx.transpose(&#x27;prop name&#x27;, fn)
+     * pmx.transpose('prop name', fn)
      *
      * or
      *
      * pmx.transpose({
-     *   name : &#x27;variable name&#x27;,
+     *   name : 'variable name',
      *   data : function() { return value }
      * });
      */
 </span>    transpose : function(variable_name, reporter) {
-      if (typeof variable_name === &#x27;object&#x27;) {
+      if (typeof variable_name === 'object') {
         reporter = variable_name.data;
         variable_name = variable_name.name;
       }
 
-      if (typeof reporter !== &#x27;function&#x27;) {
-        return console.error(&#x27;[PMX] reporter is not a function&#x27;);
+      if (typeof reporter !== 'function') {
+        return console.error('[PMX] reporter is not a function');
       }
 
       Probe._var[variable_name] = {
@@ -6930,9 +6923,9 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Metric] Name not defined&#x27;);
+        return console.error('[Probe][Metric] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       Probe._var[opts.name] = {
         value   : opts.value || 0,
@@ -6949,7 +6942,7 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
         val : function() {
           var value = Probe._var[opts.name].value;
 
-          if (typeof(value) == &#x27;function&#x27;)
+          if (typeof(value) == 'function')
             value = value();
 
           return value;
@@ -6961,20 +6954,20 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
     },
     histogram : function(opts) {
       if (!opts.name)
-        return console.error(&#x27;[Probe][Histogram] Name not defined&#x27;);
-      opts.measurement = opts.measurement || &#x27;mean&#x27;;
-      opts.unit = opts.unit || &#x27;&#x27;;
+        return console.error('[Probe][Histogram] Name not defined');
+      opts.measurement = opts.measurement || 'mean';
+      opts.unit = opts.unit || '';
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (Probe.AVAILABLE_MEASUREMENTS.indexOf(opts.measurement) == -1)
-        return console.error(&#x27;[Probe][Histogram] Measure type %s does not exists&#x27;, opts.measurement);
+        return console.error('[Probe][Histogram] Measure type %s does not exists', opts.measurement);
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       var histogram = new Histogram(opts);
 
       Probe._var[opts.name] = {
-        value: function() { return (Math.round(histogram.val() * 100) / 100) + &#x27;&#x27; + opts.unit },
+        value: function() { return (Math.round(histogram.val() * 100) / 100) + '' + opts.unit },
         agg_type: agg_type
       };
 
@@ -6990,16 +6983,16 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Meter] Name not defined&#x27;);
+        return console.error('[Probe][Meter] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
-      opts.unit = opts.unit || &#x27;&#x27;;
+      opts.unit = opts.unit || '';
 
       var meter = new Meter(opts);
 
       Probe._var[opts.name] = {
-        value: function() { return meter.val() + &#x27;&#x27; + opts.unit },
+        value: function() { return meter.val() + '' + opts.unit },
         agg_type: agg_type
       };
 
@@ -7015,9 +7008,9 @@ pmx.notify(new Error(&#x27;This is an error&#x27;));
       var agg_type = opts.agg_type || Probe.default_aggregation;
 
       if (!opts.name)
-        return console.error(&#x27;[Probe][Counter] Name not defined&#x27;);
+        return console.error('[Probe][Counter] Name not defined');
       if (Probe.AVAILABLE_AGG_TYPES.indexOf(agg_type) == -1)
-        return console.error(&#x22;[Probe][Metric] Unknown agg_type: %s&#x22;, agg_type);
+        return console.error("[Probe][Metric] Unknown agg_type: %s", agg_type);
 
       var counter = new Counter();
 
@@ -7036,7 +7029,7 @@ var probe = pmx.<span class="apidocCodeKeywordSpan">probe</span>();
 // Here the value function will be called each second to get the value
 // returned by Object.keys(users).length
 var metric = probe.metric({
-name    : &#x27;Realtime user&#x27;,
+name    : 'Realtime user',
 value   : function() {
   return Object.keys(users).length;
 ...</pre></li>
@@ -7052,11 +7045,11 @@ value   : function() {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">resolvePidPaths = function (filepaths) {
-  if (typeof(filepaths) === &#x27;number&#x27;)
+  if (typeof(filepaths) === 'number')
     return filepaths;
 
   function detect(filepaths) {
-    var content = &#x27;&#x27;;
+    var content = '';
 
     filepaths.some(function(filepath) {
       try {
@@ -7089,25 +7082,25 @@ value   : function() {
     <li>description and source-code<pre class="apidocCodePre">scopedAction = function (action_name, fn) {
 
   if (!action_name)
-    return console.error(&#x27;[PMX] action.action_name is missing&#x27;);
+    return console.error('[PMX] action.action_name is missing');
   if (!fn)
-    return console.error(&#x27;[PMX] callback is missing&#x27;);
+    return console.error('[PMX] callback is missing');
 
   if (!process.send) {
-    debug(&#x27;Process not running within PM2&#x27;);
+    debug('Process not running within PM2');
     return false;
   }
 
   // Notify the action
   Transport.send({
-    type : &#x27;axm:action&#x27;,
+    type : 'axm:action',
     data : {
       action_name : action_name,
-      action_type : &#x27;scoped&#x27;
+      action_type : 'scoped'
     }
   });
 
-  process.on(&#x27;message&#x27;, function(data) {
+  process.on('message', function(data) {
     if (!data
         || data.uuid === undefined
         || data.action_name === undefined)
@@ -7117,7 +7110,7 @@ value   : function() {
       var res = {
         send : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:stream&#x27;,
+            type        : 'axm:scoped_action:stream',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -7127,7 +7120,7 @@ value   : function() {
         },
         error : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:error&#x27;,
+            type        : 'axm:scoped_action:error',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -7137,7 +7130,7 @@ value   : function() {
         },
         end : function(dt) {
           Transport.send({
-            type        : &#x27;axm:scoped_action:end&#x27;,
+            type        : 'axm:scoped_action:end',
             data        : {
               data        : dt,
               uuid        : data.uuid,
@@ -7149,7 +7142,7 @@ value   : function() {
 
       var d = domain.create();
 
-      d.on(&#x27;error&#x27;, function(err) {
+      d.on('error', function(err) {
         res.error(err.message || err.stack || err);
         setTimeout(function() {
           process.exit(1);
@@ -7171,11 +7164,11 @@ end the scoped action.
 Example:
 
 ```javascript
-pmx.<span class="apidocCodeKeywordSpan">scopedAction</span>(&#x27;long running lsof&#x27;, function(data, res) {
-var child = spawn(&#x27;lsof&#x27;, []);
+pmx.<span class="apidocCodeKeywordSpan">scopedAction</span>('long running lsof', function(data, res) {
+var child = spawn('lsof', []);
 
-child.stdout.on(&#x27;data&#x27;, function(chunk) {
-  chunk.toString().split(&#x27;\n&#x27;).forEach(function(line) {
+child.stdout.on('data', function(chunk) {
+  chunk.toString().split('\n').forEach(function(line) {
     res.send(line); // This send log to Keymetrics to be saved (for tracking)
   });
 });
@@ -7223,29 +7216,29 @@ child.stdout.on(&#x27;data&#x27;, function(chunk) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">tracing = function (pmx, opts) {
 
-  if (Array.isArray(opts.ignore_routes) &#x26;&#x26; opts.ignore_routes.length &#x3e; 0) {
+  if (Array.isArray(opts.ignore_routes) &amp;&amp; opts.ignore_routes.length &gt; 0) {
     opts.ignoreFilter.url = opts.ignore_routes;
   }
 
-  Transaction.tracer = require(&#x27;vxx&#x27;).start(opts);
+  Transaction.tracer = require('vxx').start(opts);
 
   Options.configureModule({
     tracing_enabled : true
   });
 
   // broadcast to pm2 aggregator
-  Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function(data) {
+  Transaction.tracer.getBus().on('transaction', function(data) {
     Transport.send({
-      type: &#x27;axm:trace&#x27;,
+      type: 'axm:trace',
       data: data
     })
   })
 
-  // Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function (data) {
+  // Transaction.tracer.getBus().on('transaction', function (data) {
   //   if (!opts.custom_probes) return;
   //   // TODO: mine tracing data and require custom probes
   //<span class="apidocCodeCommentSpan">   /*try {
-  //     var custom_probe = require(&#x27;./probes/&#x27; + modul)(pmx, Transaction.tracer)
+  //     var custom_probe = require('./probes/' + modul)(pmx, Transaction.tracer)
   //   } catch (err) { }*/
 </span>  // })
 }</pre></li>
@@ -7296,7 +7289,7 @@ if (opts.profiling)
 
 if (opts.custom_probes == true) {
   // Event loop monitoring
-  require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+  require('./probes/pacemaker.js')(PMX);
 }
 
 if (opts.default_actions == true) {
@@ -7332,9 +7325,9 @@ if (opts.default_actions == true) {
 
   (function look_for_profiler(require_paths) {
     if (!require_paths[0])
-      return cb(new Error(&#x27;Module not found&#x27;));
+      return cb(new Error('Module not found'));
 
-    var profiler_path = path.join(require_paths[0], &#x27;v8-profiler&#x27;);
+    var profiler_path = path.join(require_paths[0], 'v8-profiler');
 
     fs.exists(profiler_path, function(exist) {
       if (exist)
@@ -7376,11 +7369,11 @@ Profiling.v8Profiling = function(pmx) {
   try {
     var profiler = require(profiler_path);
   } catch(e) {
-    debug(&#x27;v8-profiler module not installed&#x27;, e);
+    debug('v8-profiler module not installed', e);
     return false;
   }
 
-  debug(&#x27;v8-profiler sucessfully enabled&#x27;);
+  debug('v8-profiler sucessfully enabled');
 
 <span class="apidocCodeCommentSpan">  /**
    * Tell Keymetrics that profiling is possible
@@ -7393,11 +7386,11 @@ Profiling.v8Profiling = function(pmx) {
   /**
    * Heap snapshot
    */
-  pmx.action(&#x27;km:heapdump&#x27;, function(reply) {
-    var dump_file = path.join(os.tmpDir(), Date.now() + &#x27;.heapsnapshot&#x27;);
+  pmx.action('km:heapdump', function(reply) {
+    var dump_file = path.join(os.tmpDir(), Date.now() + '.heapsnapshot');
 
-    var snapshot = profiler.takeSnapshot(&#x27;km-heap-snapshot&#x27;);
-    var buffer    = &#x27;&#x27;;
+    var snapshot = profiler.takeSnapshot('km-heap-snapshot');
+    var buffer    = '';
 
     snapshot.serialize(
       function iterator(data, length) {
@@ -7406,7 +7399,7 @@ Profiling.v8Profiling = function(pmx) {
         snapshot.delete();
 
         fs.writeFile(dump_file, buffer, function (err) {
-          debug(&#x27;Heap dump file flushed (e=&#x27;, err);
+          debug('Heap dump file flushed (e=', err);
 
           if (err) {
             return reply({
@@ -7427,15 +7420,15 @@ Profiling.v8Profiling = function(pmx) {
   /**
    * CPU profiling snapshot
    */
-  var ns_cpu_profiling        = &#x27;km-cpu-profiling&#x27;;
-  var cpu_dump_file = path.join(os.tmpDir(), Date.now() + &#x27;.cpuprofile&#x27;);
+  var ns_cpu_profiling        = 'km-cpu-profiling';
+  var cpu_dump_file = path.join(os.tmpDir(), Date.now() + '.cpuprofile');
 
-  pmx.action(&#x27;km:cpu:profiling:start&#x27;, function(reply) {
+  pmx.action('km:cpu:profiling:start', function(reply) {
     profiler.startProfiling(ns_cpu_profiling);
     return reply({ success : true });
   });
 
-  pmx.action(&#x27;km:cpu:profiling:stop&#x27;, function(reply) {
+  pmx.action('km:cpu:profiling:stop', function(reply) {
     var cpu = profiler.stopProfiling(ns_cpu_profiling);
 
     fs.writeFile(cpu_dump_file, JSON.stringify(cpu), function(err) {
@@ -7496,7 +7489,7 @@ if (opts.profiling)
 
 if (opts.custom_probes == true) {
   // Event loop monitoring
-  require(&#x27;./probes/pacemaker.js&#x27;)(PMX);
+  require('./probes/pacemaker.js')(PMX);
 }
 
 if (opts.default_actions == true) {
@@ -7522,13 +7515,13 @@ if (opts.default_actions == true) {
 
   if (!Array.isArray(methods)) methods = [methods];
 
-  for (var i = 0; i &#x3c; methods.length; ++i) {
-    debug(&#x27;Wrapping method:&#x27;, methods[i]);
+  for (var i = 0; i &lt; methods.length; ++i) {
+    debug('Wrapping method:', methods[i]);
     var original = object[methods[i]];
-    if (!original) return debug(&#x27;Method %s unknown&#x27;, methods[i]);
+    if (!original) return debug('Method %s unknown', methods[i]);
     if (original.__axm_original) {
-      debug(&#x27;Already wrapped&#x27;, methods[i]);
-      if (methods[i] != &#x27;_load&#x27;)
+      debug('Already wrapped', methods[i]);
+      if (methods[i] != '_load')
         return;
     }
     var hooked = hook(original);
@@ -7540,7 +7533,7 @@ if (opts.default_actions == true) {
       hooked.__axm_original = original;
     }
     object[methods[i]] = hooked;
-    //debug(&#x27;Method proxified&#x27;);
+    //debug('Method proxified');
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -7551,9 +7544,9 @@ if (opts.default_actions == true) {
     ignore_routes : []
   }, opts);
 
-  Proxy.<span class="apidocCodeKeywordSpan">wrap</span>(Module, &#x27;_load&#x27;, function(load) {
+  Proxy.<span class="apidocCodeKeywordSpan">wrap</span>(Module, '_load', function(load) {
     if (load.__axm_original) {
-debug(&#x27;HTTP routes have already been wrapped before&#x27;);
+debug('HTTP routes have already been wrapped before');
 
 Options.configureModule({
   latency : opts.http
@@ -7606,19 +7599,19 @@ Options.configureModule({
     : this._sum / this._count;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-  if (typeof(opts.value) === &#x27;undefined&#x27;)
-    return console.error(&#x27;[Probe][Metric][threshold-avg] Val undefined!&#x27;);
+  if (typeof(opts.value) === 'undefined')
+    return console.error('[Probe][Metric][threshold-avg] Val undefined!');
   this.sample = new Sample(opts.interval || 180);
   this.cmp = function(value, threshold) {
     this.sample.update(parseFloat(value));
     if (this.start) {
-      if (typeof(opts.cmp) !== &#x27;undefined&#x27; &#x26;&#x26; opts.cmp !== null)
+      if (typeof(opts.cmp) !== 'undefined' &amp;&amp; opts.cmp !== null)
         return opts.cmp(this.sample.<span class="apidocCodeKeywordSpan">getMean</span>(), threshold);
       return cmp(this.sample.getMean(), threshold);
     }
   };
   break;
-case &#x27;smart&#x27;:
+case 'smart':
   this.sample = new Sample(opts.interval || 300);
   this.small = new Sample(opts.sample || 30);
 ...</pre></li>
@@ -7634,25 +7627,25 @@ case &#x27;smart&#x27;:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getStddev = function () {
-  return (this._count &#x3c; 2)
+  return (this._count &lt; 2)
     ? 1
     : Math.sqrt(this.getVariance());
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-    case &#x27;smart&#x27;:
+    case 'smart':
 this.sample = new Sample(opts.interval || 300);
 this.small = new Sample(opts.sample || 30);
 this.cmp = function(value, threshold) {
   if (value !== null) {
     this.sample.update(parseFloat(value));
     this.small.update(parseFloat(value));
-  //debug(&#x27;Check&#x27;, value, Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (
+  //debug('Check', value, Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (
 Math.sqrt(2 * Math.PI) * this.sample.<span class="apidocCodeKeywordSpan">getStddev</span>()));
 
     if (this.start)
     //return false
       return (Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (Math.sqrt(2 * Math.PI) *
-this.sample.getStddev()) &#x3c; 0.00000001)
+this.sample.getStddev()) &lt; 0.00000001)
   }
   return false;
 };
@@ -7669,25 +7662,25 @@ this.sample.getStddev()) &#x3c; 0.00000001)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getVariance = function () {
-  return (this._count &#x3c; 2)
+  return (this._count &lt; 2)
     ? 1
     :  this._varianceS / (this._count -1)
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-    case &#x27;smart&#x27;:
+    case 'smart':
 this.sample = new Sample(opts.interval || 300);
 this.small = new Sample(opts.sample || 30);
 this.cmp = function(value, threshold) {
   if (value !== null) {
     this.sample.update(parseFloat(value));
     this.small.update(parseFloat(value));
-  //debug(&#x27;Check&#x27;, value, Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.<span class="apidocCodeKeywordSpan
+  //debug('Check', value, Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.<span class="apidocCodeKeywordSpan
 ">getVariance</span>())) / (Math.sqrt(2 * Math.PI) * this.sample.getStddev()));
 
     if (this.start)
     //return false
       return (Math.exp(- Math.pow(value - this.sample.getMean(), 2) / (2 * this.sample.getVariance())) / (Math.sqrt(2 * Math.PI) *
-this.sample.getStddev()) &#x3c; 0.00000001)
+this.sample.getStddev()) &lt; 0.00000001)
   }
   return false;
 };
@@ -7704,7 +7697,7 @@ this.sample.getStddev()) &#x3c; 0.00000001)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">update = function (value) {
-  if (this._count &#x3e;= this._size) {
+  if (this._count &gt;= this._size) {
     this._elements.push(value);
     this._sum += (value - this._elements.shift());
   }
@@ -7718,7 +7711,7 @@ this.sample.getStddev()) &#x3c; 0.00000001)
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-  measurement : &#x27;mean&#x27;
+  measurement : 'mean'
 });
 
 var latency = 0;
@@ -7752,9 +7745,9 @@ setInterval(function() {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">http = function (opts) {
-  var Module = require(&#x27;module&#x27;);
+  var Module = require('module');
 
-  debug(&#x27;Wrapping HTTP routes&#x27;);
+  debug('Wrapping HTTP routes');
 
   if (Array.isArray(opts)) {
     var routes = JSON.parse(JSON.stringify(opts));
@@ -7772,9 +7765,9 @@ setInterval(function() {
     ignore_routes : []
   }, opts);
 
-  Proxy.wrap(Module, &#x27;_load&#x27;, function(load) {
+  Proxy.wrap(Module, '_load', function(load) {
     if (load.__axm_original) {
-      debug(&#x27;HTTP routes have already been wrapped before&#x27;);
+      debug('HTTP routes have already been wrapped before');
 
       Options.configureModule({
         latency : opts.http
@@ -7784,7 +7777,7 @@ setInterval(function() {
         return function(file) { return load.__axm_original.apply(this, arguments) };
       } else {
         return function(file) {
-          if (file === &#x27;http&#x27; || file === &#x27;https&#x27;)
+          if (file === 'http' || file === 'https')
             return SimpleHttpWrap(opts, load.__axm_original.apply(this, arguments));
           else
             return load.__axm_original.apply(this, arguments);
@@ -7793,9 +7786,9 @@ setInterval(function() {
     }
 
     return function(file) {
-      if (opts.http &#x26;&#x26;
-          (file === &#x27;http&#x27; || file === &#x27;https&#x27;)) {
-        debug(&#x27;http module being required&#x27;);
+      if (opts.http &amp;&amp;
+          (file === 'http' || file === 'https')) {
+        debug('http module being required');
         Options.configureModule({
           latency : true
         });
@@ -7836,29 +7829,29 @@ if (opts.custom_probes == true) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">tracing = function (pmx, opts) {
 
-  if (Array.isArray(opts.ignore_routes) &#x26;&#x26; opts.ignore_routes.length &#x3e; 0) {
+  if (Array.isArray(opts.ignore_routes) &amp;&amp; opts.ignore_routes.length &gt; 0) {
     opts.ignoreFilter.url = opts.ignore_routes;
   }
 
-  Transaction.tracer = require(&#x27;vxx&#x27;).start(opts);
+  Transaction.tracer = require('vxx').start(opts);
 
   Options.configureModule({
     tracing_enabled : true
   });
 
   // broadcast to pm2 aggregator
-  Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function(data) {
+  Transaction.tracer.getBus().on('transaction', function(data) {
     Transport.send({
-      type: &#x27;axm:trace&#x27;,
+      type: 'axm:trace',
       data: data
     })
   })
 
-  // Transaction.tracer.getBus().on(&#x27;transaction&#x27;, function (data) {
+  // Transaction.tracer.getBus().on('transaction', function (data) {
   //   if (!opts.custom_probes) return;
   //   // TODO: mine tracing data and require custom probes
   //<span class="apidocCodeCommentSpan">   /*try {
-  //     var custom_probe = require(&#x27;./probes/&#x27; + modul)(pmx, Transaction.tracer)
+  //     var custom_probe = require('./probes/' + modul)(pmx, Transaction.tracer)
   //   } catch (err) { }*/
 </span>  // })
 }</pre></li>
@@ -7903,17 +7896,17 @@ if (opts.profiling)
     <li>example usage<pre class="apidocCodePre">...
 
 ```javascript
-pmx.scopedAction(&#x27;long running lsof&#x27;, function(data, res) {
-var child = spawn(&#x27;lsof&#x27;, []);
+pmx.scopedAction('long running lsof', function(data, res) {
+var child = spawn('lsof', []);
 
-child.stdout.on(&#x27;data&#x27;, function(chunk) {
-  chunk.toString().split(&#x27;\n&#x27;).forEach(function(line) {
+child.stdout.on('data', function(chunk) {
+  chunk.toString().split('\n').forEach(function(line) {
     res.<span class="apidocCodeKeywordSpan">send</span>(line); // This send log to Keymetrics to be saved (for tracking)
   });
 });
 
-child.stdout.on(&#x27;end&#x27;, function(chunk) {
-  res.end(&#x27;end&#x27;); // This end the scoped action
+child.stdout.on('end', function(chunk) {
+  res.end('end'); // This end the scoped action
 });
 ...</pre></li>
     </ul>
@@ -7927,3 +7920,4 @@ child.stdout.on(&#x27;end&#x27;, function(chunk) {
     ]
 </div>
 </div>
+</body></html>
